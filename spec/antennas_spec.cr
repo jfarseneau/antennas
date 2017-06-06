@@ -1,6 +1,6 @@
 require "./spec_helper"
 
-describe PlexAntennas do
+describe Antennas do
   # TODO: Write tests
 
   it "works" do

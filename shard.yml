@@ -5,7 +5,7 @@ authors:
   - Jean-Francois Arseneau <jf.arseneau@gmail.com>
 
 targets:
-  plex_antennas:
+  antennas:
     main: src/antennas.cr
 
 crystal: 0.22.0

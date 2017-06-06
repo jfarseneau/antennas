@@ -1,0 +1,6 @@
+bindAddress: ''
+tvheadendURL: http://test:test@localhost:9981
+antennaURL: http://localhost
+tunerCount: 6 # numbers of tuners in tvheadend
+tvheadendWeight: 300 # subscription priority
+chunkSize: 1024*1024 # usually you don't need to edit this
