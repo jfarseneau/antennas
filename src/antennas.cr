@@ -2,13 +2,13 @@ require "kemal"
 require "json"
 
 get "/" do
-  "Plex antennas are listening in!"
+  "Antennas are operational!"
 end
 
 get "/discover.json" do |env|
   env.response.content_type = "application/json"
   {
-    FriendlyName: "plex_antennas",
+    FriendlyName: "Antennas",
     ModelNumber: "HDTC-2US",
     FirmwareName: "hdhomeruntc_atsc",
     TunerCount: 6,

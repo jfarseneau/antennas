@@ -1,4 +1,4 @@
-name: plex_antennas
+name: antennas
 version: 0.1.0
 
 authors:
@@ -6,7 +6,7 @@ authors:
 
 targets:
   plex_antennas:
-    main: src/plex_antennas.cr
+    main: src/antennas.cr
 
 crystal: 0.22.0
 
