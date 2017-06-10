@@ -1,6 +1,3 @@
-bind_address: ''
-tvheadend_url: http://test:test@localhost:9981
-antenna_url: http://localhost
-tuner_count: 6 # numbers of tuners in tvheadend
+tvheadend_url: http://replace:me@x.x.x.x:9981
 tvheadend_weight: 300 # subscription priority
-chunk_size: 1024*1024 # usually you don't need to edit this
+tuner_count: 6 # numbers of tuners in tvheadend
