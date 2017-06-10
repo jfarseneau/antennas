@@ -46,6 +46,7 @@ Docker instructions coming soon, along with Dockerfile, and the whole shebang.
 
 ### Building Antennas locally
 * [Install Crystal](https://crystal-lang.org/docs/installation/) if you do not yet have it
+* Run `shards install`
 * Run `crystal build ./antennas/antennas.cr`
 * Run `./antennas`
 
