@@ -2,27 +2,41 @@
 
 A Crystal port of [tvhProxy](https://github.com/jkaberg/tvhProxy) which is a program that translates the Tvheadend API to emulate a HDHomeRun API. This is particularly useful to connect [Plex's DVR feature](https://www.plex.tv/features/live-tv-dvr/) to Tvheadend.
 
-## Installation
+## Getting it running
 
 ### Linux
 
-Coming soon.
+* Create a directory to store antennas, i.e. `mkdir antennas`
+* Download a [Linux release of antennas](https://github.com/TheJF/antennas/releases) inside Antennas directory
+* Untar Antennas
+* [Configure your server](https://github.com/TheJF/antennas#configuration)
+* Run `./antennas`
 
 ### Mac OS X
 
-Coming soon.
+* Download a [macOS release of antennas](https://github.com/TheJF/antennas/releases)
+* Extract from the zip
+* Open your terminal and navigate to where Antennas was extracted
+* [Configure your server](https://github.com/TheJF/antennas#configuration)
+* Run `./antennas`
 
 ### Windows
 
+Because Crystal does not yet compile to Windows, and I haven't rewritten this once more in a language that does, to run an executable of this you need to setup Ubuntu on Windows and run it that way.
+
+* (Setup Bash on Windows Subsystem for Linux)[https://msdn.microsoft.com/en-us/commandline/wsl/install_guide]
+* Run `bash` in command prompt
+* Create a directory to store antennas, i.e. `mkdir antennas`
+* Download a [Linux release of antennas](https://github.com/TheJF/antennas/releases) inside Antennas directory
+* Untar Antennas
+* [Configure your server](https://github.com/TheJF/antennas#configuration)
+* Run `./antennas`
+
+### Docker
+
 Coming soon.
 
-## Usage
-
-After configuring Antennas for your setup (see below), run `./antennas` and you're good to go, as far as setting up the layer between Tvheadend and Plex.
-
-Detailed instructions on how to get through setting it up on Plex coming soon.
-
-### Configuration
+## Configuration
 
 Antennas can be configured either via the config.yml or environment variables. Environment variables take precedence over the config.yml.
 
@@ -38,7 +52,7 @@ Antennas will look for three values inside a `config/config.yml` file. They are:
 
 If you want to set environment variables instead of modifying the config.yml, you can do so. The environment variable names are the same than the config.yml, except capitalized. So, `TVHEADEND_URL`, `TVHEADEND_WEIGHT`, and `TUNER_COUNT`.
 
-### Docker
+### Docker Configuration
 
 Docker instructions coming soon, along with Dockerfile, and the whole shebang.
 
