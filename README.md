@@ -4,6 +4,14 @@ A Crystal port of [tvhProxy](https://github.com/jkaberg/tvhProxy) which is a pro
 
 ## Getting it running
 
+
+### Docker
+
+There is more information on how to set it up on the [docker-antennas page](https://github.com/TheJF/docker-antennas), however the short version is:
+* `docker create --name=antennas -v <path/to/config>:/antennas/config -p 5004:5004 the/antennas`
+* Set up `config.yml` (see configuration instructions [here](https://github.com/TheJF/antennas#configuration)) where you pointed the config volume (what you replaced `<path/to/config>` with
+* `docker start antennas`
+
 ### Linux
 
 * Create a directory to store antennas, i.e. `mkdir antennas`
@@ -31,10 +39,6 @@ Because Crystal does not yet compile to Windows, and I haven't rewritten this on
 * Untar Antennas
 * [Configure your server](https://github.com/TheJF/antennas#configuration)
 * Run `./antennas`
-
-### Docker
-
-Coming soon.
 
 ## Configuration
 
