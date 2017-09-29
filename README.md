@@ -8,7 +8,7 @@ A Crystal port of [tvhProxy](https://github.com/jkaberg/tvhProxy) which is a pro
 ### Docker
 
 There is more information on how to set it up on the [docker-antennas page](https://github.com/TheJF/docker-antennas), however the short version is:
-* `docker create --name=antennas -v <path/to/config>:/antennas/config -p 5004:5004 the/antennas`
+* `docker create --name=antennas -v <path/to/config>:/opt/antennas/config -p 5004:5004 thejf/antennas`
 * Set up `config.yml` (see configuration instructions [here](https://github.com/TheJF/antennas#configuration)) where you pointed the config volume (what you replaced `<path/to/config>` with
 * `docker start antennas`
 
