@@ -7,11 +7,12 @@ A Crystal port of [tvhProxy](https://github.com/jkaberg/tvhProxy) which is a pro
 ### Docker
 
 Simplest way to get it running is to run it:
-`docker run -p 5004:5004 -e TVHEADEND_URL=http://user:pass@192.168.0.1:9981 thejf/antennas`
+`docker run -p 5004:5004 -e ANTENNAS_URL=http://192.168.0.2:5004 -e TVHEADEND_URL=http://user:pass@192.168.0.1:9981 thejf/antennas`
 
 Alternatively, you can set it with all the available environment variables:
 ```
   docker create --name=antennas
+    -e ANTENNAS_URL=http://192.168.0.2:5004
     -e TVHEADEND_URL=http://user:pass@192.168.0.1:9981
     -e TVHEADEND_WEIGHT=300
     -e TUNER_COUNT=6
@@ -24,6 +25,7 @@ And then `docker start antennas`
 Or, you can try by mounting a volume, set by yourself in path/to/config, that will need a config.yml to work. Example of a config.yml is [available here](https://github.com/TheJF/antennas/blob/master/config/config.yml), or below:
 ```
 tvheadend_url: http://replace:me@x.x.x.x:9981
+antennas_url: http://x.x.x.x:5004
 tvheadend_weight: 300
 tuner_count: 6
 ```
