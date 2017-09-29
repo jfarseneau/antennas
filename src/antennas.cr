@@ -6,6 +6,7 @@ require "http/client"
 class Config
   YAML.mapping(
     tvheadend_url: String,
+    antennas_url: String,
     tvheadend_weight: String,
     tuner_count: String,
   )
@@ -18,6 +19,10 @@ end
 # Seems wrong as free floating functions, but...
 def tvheadend_url
   ENV["TVHEADEND_URL"] ||= config.tvheadend_url
+end
+
+def antennas_url
+  ENV["ANTENNAS_URL"] ||= config.antennas_url
 end
 
 def tuner_count
@@ -40,8 +45,8 @@ def device
     FirmwareVersion: "20150826",
     DeviceID: "12345670",
     DeviceAuth: "test1234",
-    BaseURL: tvheadend_url,
-    LineupURL: "#{tvheadend_url}/lineup.json"
+    BaseURL: antennas_url,
+    LineupURL: "#{antennas_url}/lineup.json"
   }
 end
 
