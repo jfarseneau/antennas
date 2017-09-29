@@ -1,0 +1,16 @@
+<root xmlns="urn:schemas-upnp-org:device-1-0">
+    <specVersion>
+        <major>1</major>
+        <minor>0</minor>
+    </specVersion>
+    <URLBase><%= device["BaseURL"] %></URLBase>
+    <device>
+        <deviceType>urn:schemas-upnp-org:device:MediaServer:1</deviceType>
+        <friendlyName><%= device["FriendlyName"] %></friendlyName>
+        <manufacturer><%= device["Manufacturer"] %></manufacturer>
+        <modelName><%= device["ModelNumber"] %></modelName>
+        <modelNumber><%= device["ModelNumber"] %></modelNumber>
+        <serialNumber></serialNumber>
+        <UDN>uuid:<%= device["DeviceID"] %></UDN>
+    </device>
+</root>

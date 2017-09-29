@@ -15,25 +15,49 @@ def config
   Config.from_yaml(File.read("./config/config.yml"))
 end
 
+# Seems wrong as free floating functions, but...
+def tvheadend_url
+  ENV["TVHEADEND_URL"] ||= config.tvheadend_url
+end
+
+def tuner_count
+  ENV["TUNER_COUNT"] ||= config.tuner_count
+  ENV["TUNER_COUNT"].to_i
+end
+
+def tvheadend_weight
+  ENV["TVHEADEND_WEIGHT"] ||= config.tvheadend_weight
+  ENV["TVHEADEND_WEIGHT"].to_i
+end
+
+def device
+  {
+    FriendlyName: "Antennas",
+    Manufacturer: "Silicondust",
+    ModelNumber: "HDTC-2US",
+    FirmwareName: "hdhomeruntc_atsc",
+    TunerCount: tuner_count,
+    FirmwareVersion: "20150826",
+    DeviceID: "12345670",
+    DeviceAuth: "test1234",
+    BaseURL: tvheadend_url,
+    LineupURL: "#{tvheadend_url}/lineup.json"
+  }
+end
+
+# Router
 get "/" do
   "Antennas are operational!"
 end
 
-get "/discover.json" do |env|
-  ENV["TUNER_COUNT"] ||= config.tuner_count
+get "/device.xml" do |env|
+  env.response.content_type = "application/xml"
+  render "src/views/discover.xml.ecr"
+end
 
+get "/discover.json" do |env|
   env.response.content_type = "application/json"
-  {
-    FriendlyName: "Antennas",
-    ModelNumber: "HDTC-2US",
-    FirmwareName: "hdhomeruntc_atsc",
-    TunerCount: ENV["TUNER_COUNT"].to_i,
-    FirmwareVersion: "20150826",
-    DeviceID: "12345670",
-    DeviceAuth: "test1234",
-    BaseURL: "test",
-    LineupURL: "test"
-  }.to_json
+  device.to_json
 end
 
 get "/lineup_status.json" do |env|
@@ -49,9 +73,7 @@ end
 # Scan TVHeadend channels and generate a JSON list
 get "/lineup.json" do |env|
   env.response.content_type = "application/json"
-  response = HTTP::Client.get "#{config.tvheadend_url}/api/channel/grid?start=0&limit=999999"
-  ENV["TVHEADEND_WEIGHT"] ||= config.tvheadend_weight
-  ENV["TVHEADEND_URL"] ||= config.tvheadend_url
+  response = HTTP::Client.get "#{tvheadend_url}/api/channel/grid?start=0&limit=999999"
   channels = JSON.parse response.body
 
   lineup = [] of {
@@ -62,7 +84,7 @@ get "/lineup.json" do |env|
   channels["entries"].each do |channel|
     if channel["enabled"]
       uuid = channel["uuid"]
-      url = %[#{ENV["TVHEADEND_URL"]}/stream/channel/#{uuid}?weight=#{ENV["TVHEADEND_WEIGHT"].to_i}]
+      url = %[#{tvheadend_url}/stream/channel/#{uuid}?weight=#{tvheadend_weight}]
       lineup << {
         GuideNumber: channel["number"].to_s,
         GuideName: channel["name"].to_s,
