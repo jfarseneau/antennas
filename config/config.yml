@@ -1,3 +1,4 @@
 tvheadend_url: http://replace:me@x.x.x.x:9981
+antennas_url: http://x.x.x.x:5004
 tvheadend_weight: 300 # subscription priority
 tuner_count: 6 # numbers of tuners in tvheadend
