@@ -16,3 +16,5 @@ dependencies:
   kemal:
     github: kemalcr/kemal
     branch: master
+  kemal-watcher:
+    github: faustinoaq/kemal-watcher

@@ -86,11 +86,12 @@ Docker instructions coming soon, along with Dockerfile, and the whole shebang.
 
 ### Building Antennas locally
 * [Install Crystal](https://crystal-lang.org/docs/installation/) if you do not yet have it
+* [Install all Crystal dependencies](https://github.com/crystal-lang/crystal/wiki/All-required-libraries)
 * Run `shards install`
 * Run `crystal build ./src/antennas.cr`
 * Run `./antennas`
 
-In case you get these linking errors 
+In case you get these linking errors
 
 ```
 /usr/bin/ld: cannot find -lz
@@ -98,7 +99,7 @@ In case you get these linking errors
 /usr/bin/ld: cannot find -lcrypto
 ```
 
-please assure that you have `libssl-dev` installed.
+Please assure that you have `libssl-dev` installed.
 
 
 ## Contributing
