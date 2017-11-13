@@ -113,7 +113,3 @@ Please assure that you have `libssl-dev` installed.
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)
 5. Create a new Pull Request
-
-## Contributors
-
-- [TheJF](https://github.com/[your-github-name]) Jean-Francois Arseneau - creator, maintainer
