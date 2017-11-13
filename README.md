@@ -1,4 +1,4 @@
-<img src="https://github.com/TheJF/antennas/blob/add_frontend/src/assets/images/Antennas-Logo.svg" />
+<img src="https://github.com/TheJF/antennas/blob/add_frontend/docs/images/Antennas-Logo.svg" />
 
 A Crystal port of [tvhProxy](https://github.com/jkaberg/tvhProxy) which is a program that translates the Tvheadend API to emulate a HDHomeRun API. This is particularly useful to connect [Plex's DVR feature](https://www.plex.tv/features/live-tv-dvr/) to Tvheadend.
 
@@ -6,14 +6,18 @@ A Crystal port of [tvhProxy](https://github.com/jkaberg/tvhProxy) which is a pro
 
 ### Docker
 
-Simplest way to get it running is to run it:
-`docker run -p 5004:5004 -e ANTENNAS_URL=http://192.168.0.2:5004 -e TVHEADEND_URL=http://user:pass@192.168.0.1:9981 thejf/antennas`
+Simplest way to get it running is to run it, replacing the `ANTENNAS_URL` and `TVHEADEND_URL` value to match your setup:
+`docker run -p 5004:5004 -e ANTENNAS_URL=http://x.x.x.x:5004 -e TVHEADEND_URL=http://replace:me@x.x.x.x:9981 thejf/antennas`
+
+To view if the configurations have been passed correctly, you can point your browser to where you are hosting Antennas (in the above example, it would be `http://x.x.x.x:5004` but this is a placeholder address that __needs__ to be changed) and you should see a summary of your configurations on the page:
+
+<img src="https://github.com/TheJF/antennas/blob/add_frontend/docs/images/example-index.png" />
 
 Alternatively, you can set it with all the available environment variables:
 ```
   docker create --name=antennas
-    -e ANTENNAS_URL=http://192.168.0.2:5004
-    -e TVHEADEND_URL=http://user:pass@192.168.0.1:9981
+    -e ANTENNAS_URL=http://x.x.x.x:5004
+    -e TVHEADEND_URL=http://replace:me@x.x.x.x:9981
     -e TVHEADEND_WEIGHT=300
     -e TUNER_COUNT=6
     -p 5004:5004
