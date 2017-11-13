@@ -1,4 +1,4 @@
-# Antennas
+<img src="https://github.com/TheJF/antennas/blob/add_frontend/src/assets/images/Antennas-Logo.svg" />
 
 A Crystal port of [tvhProxy](https://github.com/jkaberg/tvhProxy) which is a program that translates the Tvheadend API to emulate a HDHomeRun API. This is particularly useful to connect [Plex's DVR feature](https://www.plex.tv/features/live-tv-dvr/) to Tvheadend.
 
