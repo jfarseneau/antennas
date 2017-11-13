@@ -2,7 +2,7 @@ version: 1.0
 shards:
   kemal:
     github: kemalcr/kemal
-    commit: 00981bcf4424bcaa73d439a45cb005b9a0d8114e
+    commit: 
 
   kemal-watcher:
     github: faustinoaq/kemal-watcher

@@ -1,4 +1,4 @@
-FROM crystallang/crystal:latest
+FROM crystallang/crystal:0.22.0
 LABEL maintainer "jf.arseneau@gmail.com"
 
 RUN apt-get update && \
@@ -9,6 +9,6 @@ COPY . /antennas
 EXPOSE 5004
 
 WORKDIR "/antennas"
-RUN shards update && shards install
+RUN shards update
 RUN crystal build --release --no-debug src/antennas.cr
 CMD ["/antennas/antennas"]
