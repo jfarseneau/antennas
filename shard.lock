@@ -4,6 +4,10 @@ shards:
     github: kemalcr/kemal
     commit: 00981bcf4424bcaa73d439a45cb005b9a0d8114e
 
+  kemal-watcher:
+    github: faustinoaq/kemal-watcher
+    version: 0.1.9
+
   kilt:
     github: jeromegn/kilt
     version: 0.4.0
@@ -11,4 +15,8 @@ shards:
   radix:
     github: luislavena/radix
     version: 0.3.8
+
+  watcher:
+    github: faustinoaq/watcher
+    version: 0.2.0
 

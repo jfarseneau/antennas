@@ -1,4 +1,5 @@
 require "kemal"
+require "kemal-watcher"
 require "json"
 require "yaml"
 require "http/client"
@@ -51,8 +52,22 @@ def device
 end
 
 # Router
+error 404 do
+  File.read "src/public/404.html"
+end
+
 get "/" do
-  "Antennas are operational!"
+  File.read "src/public/index.html"
+end
+
+get "/antennas_config.json" do |env|
+  env.response.content_type = "application/json"
+  {
+    tvheadend_url: tvheadend_url,
+    antennas_url: antennas_url,
+    tuner_count: tuner_count,
+    tvheadend_weight: tvheadend_weight,
+  }.to_json
 end
 
 get "/device.xml" do |env|
@@ -108,5 +123,10 @@ get "/lineup.post" do |env|
 end
 
 # TODO: Flight check to make sure tvheadend is up and running and reachable
+files = [
+  "src/public/**/*"
+]
 
+public_folder "src/public"
+Kemal.watch(files)
 Kemal.run(5004)
