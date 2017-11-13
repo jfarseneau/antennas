@@ -3,3 +3,5 @@
 /bin/
 /.shards/
 antennas
+
+*.DS_Store
