@@ -1,4 +1,4 @@
-<img src="https://github.com/TheJF/antennas/blob/add_frontend/docs/images/Antennas-Logo.svg" />
+<img src="https://github.com/TheJF/antennas/blob/master/docs/images/Antennas-Logo.svg" />
 
 A Crystal port of [tvhProxy](https://github.com/jkaberg/tvhProxy) which is a program that translates the Tvheadend API to emulate a HDHomeRun API. This is particularly useful to connect [Plex's DVR feature](https://www.plex.tv/features/live-tv-dvr/) to Tvheadend.
 
@@ -11,7 +11,7 @@ Simplest way to get it running is to run it, replacing the `ANTENNAS_URL` and `T
 
 To view if the configurations have been passed correctly, you can point your browser to where you are hosting Antennas (in the above example, it would be `http://x.x.x.x:5004` but this is a placeholder address that __needs__ to be changed) and you should see a summary of your configurations on the page:
 
-<img src="https://github.com/TheJF/antennas/blob/add_frontend/docs/images/example-index.png" />
+<img src="https://github.com/TheJF/antennas/blob/master/docs/images/example-index.png" />
 
 Alternatively, you can set it with all the available environment variables:
 ```
