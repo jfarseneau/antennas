@@ -1,5 +1,5 @@
 require "kemal"
-require "kemal-watcher"
+# require "kemal-watcher"
 require "json"
 require "yaml"
 require "http/client"
@@ -128,5 +128,5 @@ files = [
 ]
 
 public_folder "src/public"
-Kemal.watch(files)
+# Kemal.watch(files)
 Kemal.run(5004)
