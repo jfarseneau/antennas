@@ -58,7 +58,7 @@ def get_connection_status
     return "Failed to authenticate with Tvheadend" if response && response.status_code == 401
     "Unknown"
   rescue
-    "Unable to find Tvheadend server"
+    "Unable to find Tvheadend server, make sure the server is up and the configuration is pointing to the right spot"
   end
 end
 
