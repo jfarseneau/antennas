@@ -51,6 +51,17 @@ def device
   }
 end
 
+def get_connection_status
+  begin
+    response = HTTP::Client.get "#{tvheadend_url}/api/channel/grid?start=0&limit=999999"
+    return "All systems go" if response && response.status_code == 200
+    return "Failed to authenticate with Tvheadend" if response && response.status_code == 401
+    "Unknown"
+  rescue
+    "Unable to find Tvheadend server"
+  end
+end
+
 # Router
 error 404 do
   File.read "src/public/404.html"
@@ -67,6 +78,7 @@ get "/antennas_config.json" do |env|
     antennas_url: antennas_url,
     tuner_count: tuner_count,
     tvheadend_weight: tvheadend_weight,
+    status: get_connection_status,
   }.to_json
 end
 
@@ -92,28 +104,40 @@ end
 
 # Scan TVHeadend channels and generate a JSON list
 get "/lineup.json" do |env|
-  env.response.content_type = "application/json"
-  response = HTTP::Client.get "#{tvheadend_url}/api/channel/grid?start=0&limit=999999"
-  channels = JSON.parse response.body
+  begin
+    env.response.content_type = "application/json"
+    response = HTTP::Client.get "#{tvheadend_url}/api/channel/grid?start=0&limit=999999"
+    channels = JSON.parse response.body
 
-  lineup = [] of {
-    "GuideNumber": String,
-    "GuideName": String,
-    "URL": String
-  }
-  channels["entries"].each do |channel|
-    if channel["enabled"]
-      uuid = channel["uuid"]
-      url = %[#{tvheadend_url}/stream/channel/#{uuid}?weight=#{tvheadend_weight}]
-      lineup << {
-        GuideNumber: channel["number"].to_s,
-        GuideName: channel["name"].to_s,
-        URL: url
-      }
+    lineup = [] of {
+      "GuideNumber": String,
+      "GuideName": String,
+      "URL": String
+    }
+    channels["entries"].each do |channel|
+      if channel["enabled"]
+        uuid = channel["uuid"]
+        url = %[#{tvheadend_url}/stream/channel/#{uuid}?weight=#{tvheadend_weight}]
+        lineup << {
+          GuideNumber: channel["number"].to_s,
+          GuideName: channel["name"].to_s,
+          URL: url
+        }
+      end
     end
-  end
 
-  lineup.to_json
+    lineup.to_json
+  rescue
+    body = nil
+    body = response.body if response
+    raise "Antennas failed to connect to Tvheadend!
+    Check that:
+      - Tvheadend is running.
+      - Antennas is correctly pointing to Tvheadend, on the right port.
+      - That your username and login are correct.
+
+    This is what Tvheadend returned, if anything: #{body}"
+  end
 end
 
 # What's the point of this guy?

@@ -27,5 +27,6 @@ fetch('/antennas_config.json').then((result) => {
   urlReplace('#antennasUrl')(config.antennas_url);
   replace('#tvheadendWeight')(config.tvheadend_weight);
   replace('#tunerCount')(config.tuner_count);
+  replace('#status')(config.status);
 });
 
