@@ -6,7 +6,7 @@ shards:
 
   kemal-watcher:
     github: faustinoaq/kemal-watcher
-    version: 0.1.9
+    version: 0.3.0
 
   kilt:
     github: jeromegn/kilt
@@ -18,5 +18,5 @@ shards:
 
   watcher:
     github: faustinoaq/watcher
-    version: 0.2.0
+    version: 0.2.3
 

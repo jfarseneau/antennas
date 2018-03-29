@@ -51,9 +51,31 @@ def device
   }
 end
 
+def generate_digest_auth_header(response, username, password)
+  #
+  authenticate_header = response.headers.get("WWW-Authenticate")[0].split(" ")
+  puts response.headers.get("WWW-Authenticate")
+  nonce_header = authenticate_header.select do |part|
+    part.includes?("nonce")
+  end
+  nonce_header[0].split('"')[1]
+end
+
 def get_connection_status
   begin
-    response = HTTP::Client.get "#{tvheadend_url}/api/channel/grid?start=0&limit=999999"
+    uri = URI.parse(tvheadend_url)
+    api_path = "/api/channel/grid?start=0&limit=999999"
+    response = HTTP::Client.new(uri) do |client|
+      client.tls?
+      res = client.get(api_path)
+      if res.status_code == 401
+        nonce = extract_nonce(res)
+        puts nonce
+        # client.basic_auth("admin", "")
+        client.get(api_path)
+      end
+    end
+    # puts response.pretty_inspect
     return "All systems go" if response && response.status_code == 200
     return "Failed to authenticate with Tvheadend" if response && response.status_code == 401
     "Unknown"
