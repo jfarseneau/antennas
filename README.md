@@ -61,10 +61,6 @@ Antennas will look for three values inside a `config/config.yml` file. They are:
 
 If you want to set environment variables instead of modifying the config.yml, you can do so. The environment variable names are the same than the config.yml, except capitalized. So, `TVHEADEND_URL`, `TVHEADEND_WEIGHT`, and `TUNER_COUNT`.
 
-### Docker Configuration
-
-Docker instructions coming soon, along with Dockerfile, and the whole shebang.
-
 ## Contributing
 
 1. Fork it ( https://github.com/thejf/antennas/fork )
