@@ -1,6 +1,6 @@
 ![Antennas](https://raw.githubusercontent.com/TheJF/antennas/master/docs/images/antennas-logo.png)
 
-A Crystal port of [tvhProxy](https://github.com/jkaberg/tvhProxy) which is a program that translates the Tvheadend API to emulate a HDHomeRun API. This is particularly useful to connect [Plex's DVR feature](https://www.plex.tv/features/live-tv-dvr/) to Tvheadend.
+A JavaScript port of [tvhProxy](https://github.com/jkaberg/tvhProxy) which is a program that translates the Tvheadend API to emulate a HDHomeRun API. This is particularly useful to connect [Plex's DVR feature](https://www.plex.tv/features/live-tv-dvr/) to Tvheadend.
 
 ## Getting it running
 
@@ -38,33 +38,12 @@ tuner_count: 6
 * Set up `config.yml` (see configuration instructions [here](https://github.com/TheJF/antennas#configuration)) where you pointed the config volume (what you replaced `<path/to/config>` with
 * Finally, `docker start antennas`
 
-### Linux
+### Run locally
 
-* Create a directory to store antennas, i.e. `mkdir antennas`
-* Download a [Linux release of antennas](https://github.com/TheJF/antennas/releases) inside Antennas directory
-* Untar Antennas
-* [Configure your server](https://github.com/TheJF/antennas#configuration)
-* Run `./antennas`
-
-### Mac OS X
-
-* Download a [macOS release of antennas](https://github.com/TheJF/antennas/releases)
-* Extract from the zip
-* Open your terminal and navigate to where Antennas was extracted
-* [Configure your server](https://github.com/TheJF/antennas#configuration)
-* Run `./antennas`
-
-### Windows
-
-Because Crystal does not yet compile to Windows, and I haven't rewritten this once more in a language that does, to run an executable of this you need to setup Ubuntu on Windows and run it that way.
-
-* (Setup Bash on Windows Subsystem for Linux)[https://msdn.microsoft.com/en-us/commandline/wsl/install_guide]
-* Run `bash` in command prompt
-* Create a directory to store antennas, i.e. `mkdir antennas`
-* Download a [Linux release of antennas](https://github.com/TheJF/antennas/releases) inside Antennas directory
-* Untar Antennas
-* [Configure your server](https://github.com/TheJF/antennas#configuration)
-* Run `./antennas`
+* [Set up Node locally](https://nodejs.org/en/download/)
+* Clone this repo: `git clone https://github.com/TheJF/antennas.git` or [download the source code directly from releases](https://github.com/TheJF/antennas/releases) and extract it
+* Run `yarn install` or `npm install` to install dependencies
+* In the directory where it was extracted, run `node index.js`
 
 ## Configuration
 
@@ -85,26 +64,6 @@ If you want to set environment variables instead of modifying the config.yml, yo
 ### Docker Configuration
 
 Docker instructions coming soon, along with Dockerfile, and the whole shebang.
-
-## Development
-
-### Building Antennas locally
-* [Install Crystal](https://crystal-lang.org/docs/installation/) if you do not yet have it
-* [Install all Crystal dependencies](https://github.com/crystal-lang/crystal/wiki/All-required-libraries)
-* Run `shards install`
-* Run `crystal build ./src/antennas.cr`
-* Run `./antennas`
-
-In case you get these linking errors
-
-```
-/usr/bin/ld: cannot find -lz
-/usr/bin/ld: cannot find -lssl
-/usr/bin/ld: cannot find -lcrypto
-```
-
-Please assure that you have `libssl-dev` installed.
-
 
 ## Contributing
 
