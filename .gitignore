@@ -1,7 +1,3 @@
-/doc/
-/lib/
-/bin/
-/.shards/
-antennas
-antennas.dwarf
 *.DS_Store
+
+node_modules
