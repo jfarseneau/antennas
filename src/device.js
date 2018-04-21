@@ -4,6 +4,7 @@ module.exports = function() {
   return {
     FriendlyName: "Antennas",
     Manufacturer: "Silicondust",
+    ManufacturerURL: "https://github.com/thejf/antennas",
     ModelNumber: "HDTC-2US",
     FirmwareName: "hdhomeruntc_atsc",
     TunerCount: config().tuner_count,
