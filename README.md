@@ -6,6 +6,7 @@ A JavaScript port of [tvhProxy](https://github.com/jkaberg/tvhProxy) which is a 
 
 ### Tvheadend Configuration
 To be able to stream from Tvheadend through Plex, you need to set up an anonymous user in Tvheadend that has streaming rights. You can do this in the users section, by creating a user `*`:
+
 ![Example configuration](https://raw.githubusercontent.com/TheJF/antennas/master/docs/images/tvheadend-config.png)
 
 ### Docker
