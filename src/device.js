@@ -7,7 +7,7 @@ module.exports = function() {
     ModelNumber: "HDTC-2US",
     FirmwareName: "hdhomeruntc_atsc",
     TunerCount: config().tuner_count,
-    FirmwareVersion: "20150826",
+    FirmwareVersion: "20170930",
     DeviceID: "12345670",
     DeviceAuth: "test1234",
     BaseURL: config().antennas_url,

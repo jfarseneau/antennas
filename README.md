@@ -18,7 +18,6 @@ Alternatively, you can set it with all the available environment variables:
   docker create --name=antennas
     -e ANTENNAS_URL=http://x.x.x.x:5004
     -e TVHEADEND_URL=http://replace:me@x.x.x.x:9981
-    -e TVHEADEND_WEIGHT=300
     -e TUNER_COUNT=6
     -p 5004:5004
     thejf/antennas
@@ -30,7 +29,6 @@ Or, you can try by mounting a volume, set by yourself in path/to/config, that wi
 ```
 tvheadend_url: http://replace:me@x.x.x.x:9981
 antennas_url: http://x.x.x.x:5004
-tvheadend_weight: 300
 tuner_count: 6
 ```
 
@@ -43,7 +41,7 @@ tuner_count: 6
 * [Set up Node locally](https://nodejs.org/en/download/)
 * Clone this repo: `git clone https://github.com/TheJF/antennas.git` or [download the source code directly from releases](https://github.com/TheJF/antennas/releases) and extract it
 * Run `yarn install` or `npm install` to install dependencies
-* In the directory where it was extracted, run `node index.js`
+* In the directory where it was extracted, run `node index.js` (Note, Node version must be above 7)
 
 ## Configuration
 
@@ -54,12 +52,11 @@ Antennas can be configured either via the config.yml or environment variables. E
 Antennas will look for three values inside a `config/config.yml` file. They are:
 
 * `tvheadend_url`: This is the path to your Tvheadend setup, with username, password, and port. Plex doesn't like `localhost` so it's best to find your own local IP and put this in if Tvheadend and Plex are running on the same network. For example: `http://user:pass@192.168.0.1:9981`
-* `tvheadend_weight`: This is a subscripton weight. I have no idea what it's for to be honest.
 * `tuner_count`: This is for the number of tuners in Tvheadend.
 
 #### Environment variables
 
-If you want to set environment variables instead of modifying the config.yml, you can do so. The environment variable names are the same than the config.yml, except capitalized. So, `TVHEADEND_URL`, `TVHEADEND_WEIGHT`, and `TUNER_COUNT`.
+If you want to set environment variables instead of modifying the config.yml, you can do so. The environment variable names are the same than the config.yml, except capitalized. So, `TVHEADEND_URL` and `TUNER_COUNT`.
 
 ## Contributing
 

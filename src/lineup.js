@@ -10,9 +10,9 @@ module.exports = function() {
     for (let channel of body.entries) {
       if (channel.enabled) {
         lineup.push({
-          GuideNumber: channel.number,
+          GuideNumber: String(channel.number),
           GuideName: channel.name,
-          URL: `${config().tvheadend_url}/stream/channel/${channel.uuid}?weight=${config().tvheadend_weight}`
+          URL: `${config().tvheadend_parsed_uri}/stream/channel/${channel.uuid}`
         })
       }
     }
