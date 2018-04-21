@@ -12,7 +12,7 @@ module.exports = function() {
         lineup.push({
           GuideNumber: channel.number,
           GuideName: channel.name,
-          URL: `${config().tvheadend_url}/stream/channel/${channel.uuid}?weight=${config().tvheadend_weight}`
+          URL: `${config().tvheadend_url}/stream/channel/${channel.uuid}`
         })
       }
     }

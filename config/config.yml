@@ -1,4 +1,3 @@
 tvheadend_url: http://admin:test@192.168.0.102:9981
 antennas_url: http://127.0.0.1:5004
-tvheadend_weight: 300 # subscription priority
 tuner_count: 6 # numbers of tuners in tvheadend
