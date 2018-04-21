@@ -12,7 +12,11 @@ module.exports = function() {
         lineup.push({
           GuideNumber: String(channel.number),
           GuideName: channel.name,
+<<<<<<< HEAD
           URL: `${config().tvheadend_parsed_uri}/stream/channel/${channel.uuid}`
+=======
+          URL: `${config().tvheadend_url}/stream/channel/${channel.uuid}`
+>>>>>>> aaaa2c4b7b53952fb469387ab4f9f696daf1b6bd
         })
       }
     }
