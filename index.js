@@ -5,18 +5,10 @@ const fs = require('fs');
 
 const router = require('./src/router');
 const config = require('./src/config');
-const device = require('./src/device');
+const ssdp = require('./src/ssdp');
 
-const SSDP = require('node-ssdp').Server
-, server = new SSDP({
-  location: {
-    port: 5004,
-    path: '/device.xml'
-  },
-  adInterval: 1000,
-  allowWildcards: true,
-  ssdpSig: 'Antennas/3.0 UPnP/1.0'
-})
+// TODO: Figure out the discovery protocol UDP thing on port 65001
+// Mainly, WHAT IS THAT YOU WANT PLEX?!
 
 const app = new Koa();
 
@@ -32,14 +24,9 @@ try {
       ctx.body = fs.createReadStream('public/404.html');
     });
 
-  server.addUSN('upnp:rootdevice')
-  server.addUSN('urn:schemas-upnp-org:device:MediaServer:1')
-  server.addUSN('urn:schemas-upnp-org:service:ContentDirectory:1')
-  server.addUSN('urn:schemas-upnp-org:service:ConnectionManager:1')
-  server.start()
-
   app.listen(5004);
   console.log(`📡  Antennas are deployed! Proxying from ${config().antennas_url}`);
+  ssdp();
 } catch (e) {
   console.log('❌  Antennas failed to deploy! 😮  It could be missing a config file, or something is misconfigured. See below for details:');
   console.log(e);
