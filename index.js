@@ -13,8 +13,9 @@ const SSDP = require('node-ssdp').Server
     port: 5004,
     path: '/device.xml'
   },
+  adInterval: 1000,
   allowWildcards: true,
-  ssdpSig: 'Antennas 3.0'
+  ssdpSig: 'Antennas/3.0 UPnP/1.0'
 })
 
 const app = new Koa();
