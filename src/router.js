@@ -44,6 +44,7 @@ module.exports = function() {
       <major>1</major>
       <minor>0</minor>
   </specVersion>
+  <URLBase>${device().BaseURL}</URLBase>
   <device>
     <dlna:X_DLNADOC>DMS-1.50</dlna:X_DLNADOC>
     <pnpx:X_hardwareId>VEN_0115&amp;DEV_1040&amp;SUBSYS_0001&amp;REV_0004 VEN_0115&amp;DEV_1040&amp;SUBSYS_0001 VEN_0115&amp;DEV_1040</pnpx:X_hardwareId>
@@ -66,15 +67,15 @@ module.exports = function() {
       <serviceType>urn:schemas-upnp-org:service:ConnectionManager:1</serviceType>
       <serviceId>urn:upnp-org:serviceId:ConnectionManager</serviceId>
       <SCPDURL>/ConnectionManager.xml</SCPDURL>
-      <controlURL>${device().BaseURL}/ConnectionManager</controlURL>
-      <eventSubURL>${device().BaseURL}/ConnectionManager</eventSubURL>
+      <controlURL>${device().BaseURL}/ConnectionManager.xml</controlURL>
+      <eventSubURL>${device().BaseURL}/ConnectionManager.xml</eventSubURL>
     </service>
     <service>
       <serviceType>urn:schemas-upnp-org:service:ContentDirectory:1</serviceType>
       <serviceId>urn:upnp-org:serviceId:ContentDirectory</serviceId>
       <SCPDURL>/ContentDirectory.xml</SCPDURL>
-      <controlURL>${device().BaseURL}/ContentDirectory</controlURL>
-      <eventSubURL>${device().BaseURL}/ContentDirectory</eventSubURL>
+      <controlURL>${device().BaseURL}/ContentDirectory.xml</controlURL>
+      <eventSubURL>${device().BaseURL}/ContentDirectory.xml</eventSubURL>
     </service>
   </serviceList>
   <iconList>

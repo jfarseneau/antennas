@@ -26,6 +26,7 @@ module.exports = function() {
   tvheadendUrl = process.env.TVHEADEND_URL || config.tvheadend_url;
   antennasUrl = process.env.ANTENNAS_URL || config.antennas_url;
   tunerCount = process.env.TUNER_COUNT || config.tuner_count;
+  DeviceUuid = process.env.DEVICE_UUID || config.device_uuid;
   let parsedTvheadendURI = parseTvheadendURI(tvheadendUrl);
   return {
     tvheadend_parsed_uri: parsedTvheadendURI.uri,
@@ -34,5 +35,6 @@ module.exports = function() {
     tvheadend_url: tvheadendUrl,
     antennas_url: antennasUrl,
     tuner_count: tunerCount,
+    device_uuid: DeviceUuid
   }
 }
