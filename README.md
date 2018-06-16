@@ -9,9 +9,23 @@ To be able to stream from Tvheadend through Plex, you need to set up an anonymou
 
 ![Example configuration](https://raw.githubusercontent.com/TheJF/antennas/master/docs/images/tvheadend-config.png)
 
+### Run locally using Node
+
+Right now, due to Docker networking issues, the best way to get this working is by running it directly through node.
+
+* [Set up Node locally](https://nodejs.org/en/download/)
+* Clone this repo: `git clone https://github.com/TheJF/antennas.git` or [download the source code directly from releases](https://github.com/TheJF/antennas/releases) and extract it
+* Run `yarn install` or `npm install` to install dependencies
+* In the directory where it was extracted, run `node index.js` (Note, Node version must be above 7)
+
+To run it as a daemon:
+`node index.js >/dev/null 2>&1 &`
+
 ### Docker
 
-Simplest way to get it running is to run it, replacing the `ANTENNAS_URL` and `TVHEADEND_URL` value to match your setup:
+Another way to get it running is to run it using Docker. Note that some functionality is currently not quite working when hosting this as a Docker container, namely, discovery from Plex. But with that warning, if you so choose to continue using Docker, the instructions are below.
+
+To start a Docker container running Antennas, run the command below. Note you must replace the `ANTENNAS_URL` and `TVHEADEND_URL` value to match your setup:
 `docker run -p 5004:5004 -e ANTENNAS_URL=http://x.x.x.x:5004 -e TVHEADEND_URL=http://replace:me@x.x.x.x:9981 thejf/antennas`
 
 To view if the configurations have been passed correctly, you can point your browser to where you are hosting Antennas (in the above example, it would be `http://x.x.x.x:5004` but this is a placeholder address that __needs__ to be changed) and you should see a summary of your configurations on the page:
@@ -40,13 +54,6 @@ tuner_count: 6
 * `docker create --name=antennas -v <path/to/config>:/antennas/config -p 5004:5004 thejf/antennas`
 * Set up `config.yml` (see configuration instructions [here](https://github.com/TheJF/antennas#configuration)) where you pointed the config volume (what you replaced `<path/to/config>` with
 * Finally, `docker start antennas`
-
-### Run locally
-
-* [Set up Node locally](https://nodejs.org/en/download/)
-* Clone this repo: `git clone https://github.com/TheJF/antennas.git` or [download the source code directly from releases](https://github.com/TheJF/antennas/releases) and extract it
-* Run `yarn install` or `npm install` to install dependencies
-* In the directory where it was extracted, run `node index.js` (Note, Node version must be above 7)
 
 ## Configuration
 
