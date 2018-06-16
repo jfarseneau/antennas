@@ -1,9 +1,12 @@
+const device = require('./device');
+
 const SSDP = require('node-ssdp').Server
 , server = new SSDP({
   location: {
     port: 5004,
     path: '/device.xml'
   },
+  udn: `uuid:${device().DeviceID}`,
   allowWildcards: true,
   ssdpSig: 'Antennas/3.0 UPnP/1.0'
 })
