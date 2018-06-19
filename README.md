@@ -9,6 +9,10 @@ To be able to stream from Tvheadend through Plex, you need to set up an anonymou
 
 ![Example configuration](https://raw.githubusercontent.com/TheJF/antennas/master/docs/images/tvheadend-config.png)
 
+### Using binaries
+
+Head over to the [release](https://github.com/TheJF/antennas/releases) section and download the binary for your platform. It will come with a `config/config.yml` that you can edit to reflect your setup, and you can simply run `antennas` in the console and the server will start up and start proxying Tvheadend over to Plex!
+
 ### Run locally using Node
 
 Right now, due to Docker networking issues, the best way to get this working is by running it directly through node.
