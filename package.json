@@ -7,7 +7,7 @@
   "author": "Jean-Francois Arseneau",
   "license": "MIT",
   "dependencies": {
-    "js-yaml": "^3.11.0",
+    "js-yaml": "^3.13.1",
     "koa": "^2.5.0",
     "koa-logger": "^3.2.0",
     "koa-request": "^1.0.0",
