@@ -4,7 +4,7 @@ const logger = require('koa-logger');
 const fs = require('fs');
 
 const router = require('./src/router');
-const config = require('./src/config');
+const config = require('./src/lib/config');
 const ssdp = require('./src/ssdp');
 
 // TODO: Figure out the discovery protocol UDP thing on port 65001

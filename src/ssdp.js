@@ -1,4 +1,4 @@
-const device = require('./device');
+const device = require('./lib/device');
 
 const SSDP = require('node-ssdp').Server
 , server = new SSDP({

@@ -1,6 +1,6 @@
 const request = require('request-promise-native');
-const config = require('./config');
-const getAPIOptions = require('./api_options');
+const config = require('../lib/config');
+const getAPIOptions = require('../lib/api_options');
 
 module.exports = function() {
   let options = getAPIOptions('/api/channel/grid?start=0&limit=999999', config().tvheadend_url);
