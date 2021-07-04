@@ -73,6 +73,7 @@ Antennas will look for three values inside a `config/config.yml` file. They are:
 #### Environment variables
 
 If you want to set environment variables instead of modifying the config.yml, you can do so. The environment variable names are the same than the config.yml, except capitalized. So, `TVHEADEND_URL` and `TUNER_COUNT`.
+Optionally, when you are hosting tvheadend and antennas in a private docker network, you can specify an URL where your tvheadend service and therefore the actual streams will be available in your network (e.g. the hostname and port of your host maschine)  
 
 ## Contributing
 
