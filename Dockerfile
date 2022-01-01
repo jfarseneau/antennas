@@ -1,10 +1,10 @@
-FROM node:9-alpine
+FROM node:16-alpine
 LABEL maintainer="jf.arseneau@gmail.com"
 
 COPY . /antennas
 WORKDIR "/antennas"
 
-RUN yarn install
+RUN npm install
 
 EXPOSE 5004
-CMD ["node", "index.js"]
+CMD ["npx", "."]

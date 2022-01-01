@@ -27,22 +27,33 @@ To run it as a daemon:
 
 ## Run locally using NPX
 
-`npx antennas --config foo/bar.yml` OR
-`TVHEADEND_URL=http://admin:test@192.168.0.1:9981 ANTENNAS_URL=http://127.0.0.1:5004 TUNER_COUNT=6 DEVICE_UUID=2f70c0d7-90a3-4429-8275-cbeeee9cd605 npx antennas`
+``` shell
+npx antennas --config foo/bar.yml
+```
+
+OR
+
+``` shell
+TVHEADEND_URL=http://admin:test@192.168.0.1:9981 ANTENNAS_URL=http://127.0.0.1:5004 TUNER_COUNT=6 DEVICE_UUID=2f70c0d7-90a3-4429-8275-cbeeee9cd605 npx antennas
+````
 
 ### Docker
 
 Another way to get it running is to run it using Docker. Note that some functionality is currently not quite working when hosting this as a Docker container, namely, discovery from Plex. But with that warning, if you so choose to continue using Docker, the instructions are below.
 
 To start a Docker container running Antennas, run the command below. Note you must replace the `ANTENNAS_URL` and `TVHEADEND_URL` value to match your setup:
-`docker run -p 5004:5004 -e ANTENNAS_URL=http://x.x.x.x:5004 -e TVHEADEND_URL=http://replace:me@x.x.x.x:9981 thejf/antennas`
+
+``` shell
+docker run -p 5004:5004 -e ANTENNAS_URL=http://x.x.x.x:5004 -e TVHEADEND_URL=http://replace:me@x.x.x.x:9981 thejf/antennas
+```
 
 To view if the configurations have been passed correctly, you can point your browser to where you are hosting Antennas (in the above example, it would be `http://x.x.x.x:5004` but this is a placeholder address that __needs__ to be changed) and you should see a summary of your configurations on the page:
 
 ![Example landing page](https://raw.githubusercontent.com/jfarseneau/antennas/master/docs/images/example-index.png)
 
 Alternatively, you can set it with all the available environment variables:
-```
+
+``` shell
   docker create --name=antennas
     -e ANTENNAS_URL=http://x.x.x.x:5004
     -e TVHEADEND_URL=http://replace:me@x.x.x.x:9981
@@ -54,7 +65,8 @@ Alternatively, you can set it with all the available environment variables:
 And then `docker start antennas`
 
 Or, you can try by mounting a volume, set by yourself in path/to/config, that will need a config.yml to work. Example of a config.yml is [available here](https://github.com/jfarseneau/antennas/blob/master/config/config.yml), or below:
-```
+
+``` yml
 tvheadend_url: http://replace:me@x.x.x.x:9981
 antennas_url: http://x.x.x.x:5004
 tuner_count: 6
