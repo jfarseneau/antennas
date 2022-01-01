@@ -25,6 +25,11 @@ Right now, due to Docker networking issues, the best way to get this working is 
 To run it as a daemon:
 `node index.js >/dev/null 2>&1 &`
 
+## Run locally using NPX
+
+`npx antennas --config foo/bar.yml` OR
+`TVHEADEND_URL=http://admin:test@192.168.0.1:9981 ANTENNAS_URL=http://127.0.0.1:5004 TUNER_COUNT=6 DEVICE_UUID=2f70c0d7-90a3-4429-8275-cbeeee9cd605 npx antennas`
+
 ### Docker
 
 Another way to get it running is to run it using Docker. Note that some functionality is currently not quite working when hosting this as a Docker container, namely, discovery from Plex. But with that warning, if you so choose to continue using Docker, the instructions are below.
@@ -73,6 +78,11 @@ Antennas will look for three values inside a `config/config.yml` file. They are:
 #### Environment variables
 
 If you want to set environment variables instead of modifying the config.yml, you can do so. The environment variable names are the same than the config.yml, except capitalized. So, `TVHEADEND_URL` and `TUNER_COUNT`.
+
+#### CLI parameters
+
+- `--config` followed by the config path, i.e. `--config foo/bar.yml` will allow you to set a custom path for the config file
+- `--nologo` will disable the big ASCII art logo for a simple text one
 
 ## Contributing
 

@@ -1,13 +1,11 @@
 const Router = require('koa-router');
-const config = require('./config');
-const device = require('./device');
 const lineup = require('./lineup');
 
 const request = require('request-promise-native');
-const getAPIOptions = require('./api_options');
+const apiOptions = require('./apiOptions');
 
-function getConnectionStatus(tvheadendUrl) {
-  let options = getAPIOptions('/api/channel/grid?start=0&limit=999999', tvheadendUrl);
+function getConnectionStatus(config) {
+  let options = apiOptions.get('/api/channel/grid?start=0&limit=999999', config);
   let result = request(options).then(function(body) {
     return "All systems go";
   }).catch(function(err) {
@@ -27,14 +25,13 @@ function getConnectionStatus(tvheadendUrl) {
   return result;
 }
 
-module.exports = function() {
+module.exports = function(config, device) {
   const router = new Router();
 
   router.get('/antennas_config.json', async (ctx, next) => {
     ctx.type = "application/json"
-    let configuration = config();
-    configuration.status = await getConnectionStatus(tvheadendUrl),
-    ctx.body = configuration;
+    config.status = await getConnectionStatus(config),
+    ctx.body = config;
   });
 
   router.get('/device.xml', (ctx, next) => {
@@ -44,38 +41,38 @@ module.exports = function() {
       <major>1</major>
       <minor>0</minor>
   </specVersion>
-  <URLBase>${device().BaseURL}</URLBase>
+  <URLBase>${device.BaseURL}</URLBase>
   <device>
     <dlna:X_DLNADOC>DMS-1.50</dlna:X_DLNADOC>
     <pnpx:X_hardwareId>VEN_0115&amp;DEV_1040&amp;SUBSYS_0001&amp;REV_0004 VEN_0115&amp;DEV_1040&amp;SUBSYS_0001 VEN_0115&amp;DEV_1040</pnpx:X_hardwareId>
     <pnpx:X_deviceCategory>MediaDevices</pnpx:X_deviceCategory>
     <df:X_deviceCategory>Multimedia</df:X_deviceCategory>
     <deviceType>urn:schemas-upnp-org:device:MediaServer:1</deviceType>
-    <friendlyName>${device().FriendlyName}</friendlyName>
+    <friendlyName>${device.FriendlyName}</friendlyName>
     <presentationURL>/</presentationURL>
-    <manufacturer>${device().Manufacturer}</manufacturer>
-    <manufacturerURL>${device().ManufacturerURL}</manufacturerURL>
-    <modelDescription>${device().FriendlyName}</modelDescription>
-    <modelName>${device().FriendlyName}</modelName>
-    <modelNumber>${device().ModelNumber}</modelNumber>
-    <modelURL>${device().ManufacturerURL}</modelURL>
+    <manufacturer>${device.Manufacturer}</manufacturer>
+    <manufacturerURL>${device.ManufacturerURL}</manufacturerURL>
+    <modelDescription>${device.FriendlyName}</modelDescription>
+    <modelName>${device.FriendlyName}</modelName>
+    <modelNumber>${device.ModelNumber}</modelNumber>
+    <modelURL>${device.ManufacturerURL}</modelURL>
     <serialNumber></serialNumber>
-    <UDN>uuid:${device().DeviceID}</UDN>
+    <UDN>uuid:${device.DeviceID}</UDN>
   </device>
   <serviceList>
     <service>
       <serviceType>urn:schemas-upnp-org:service:ConnectionManager:1</serviceType>
       <serviceId>urn:upnp-org:serviceId:ConnectionManager</serviceId>
       <SCPDURL>/ConnectionManager.xml</SCPDURL>
-      <controlURL>${device().BaseURL}/ConnectionManager.xml</controlURL>
-      <eventSubURL>${device().BaseURL}/ConnectionManager.xml</eventSubURL>
+      <controlURL>${device.BaseURL}/ConnectionManager.xml</controlURL>
+      <eventSubURL>${device.BaseURL}/ConnectionManager.xml</eventSubURL>
     </service>
     <service>
       <serviceType>urn:schemas-upnp-org:service:ContentDirectory:1</serviceType>
       <serviceId>urn:upnp-org:serviceId:ContentDirectory</serviceId>
       <SCPDURL>/ContentDirectory.xml</SCPDURL>
-      <controlURL>${device().BaseURL}/ContentDirectory.xml</controlURL>
-      <eventSubURL>${device().BaseURL}/ContentDirectory.xml</eventSubURL>
+      <controlURL>${device.BaseURL}/ContentDirectory.xml</controlURL>
+      <eventSubURL>${device.BaseURL}/ContentDirectory.xml</eventSubURL>
     </service>
   </serviceList>
   <iconList>
@@ -385,7 +382,7 @@ module.exports = function() {
 
   router.get('/discover.json', (ctx, next) => {
     ctx.type = "application/json"
-    ctx.body = device();
+    ctx.body = device;
   });
 
   router.get('/lineup_status.json', (ctx, next) => {
@@ -400,7 +397,7 @@ module.exports = function() {
 
   router.get('/lineup.json', async (ctx, next) => {
     ctx.type = "application/json"
-    ctx.body = await lineup();
+    ctx.body = await lineup(config);
   });
 
   // Still don't know if this is useful or not

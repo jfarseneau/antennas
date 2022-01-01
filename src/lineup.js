@@ -1,9 +1,8 @@
 const request = require('request-promise-native');
-const config = require('./config');
-const getAPIOptions = require('./api_options');
+const apiOptions = require('./apiOptions');
 
-module.exports = function() {
-  let options = getAPIOptions('/api/channel/grid?start=0&limit=999999', config().tvheadend_url);
+module.exports = function(config) {
+  let options = apiOptions.get('/api/channel/grid?start=0&limit=999999', config);
   return request(options).then(function(body) {
     // TODO: Check if there's a Plex permission problem
     let lineup = [];
@@ -12,7 +11,7 @@ module.exports = function() {
         lineup.push({
           GuideNumber: String(channel.number),
           GuideName: channel.name,
-          URL: `${config().tvheadend_url}/stream/channel/${channel.uuid}`
+          URL: `${config.tvheadend_url}/stream/channel/${channel.uuid}`
         })
       }
     }
