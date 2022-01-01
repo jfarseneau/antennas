@@ -15,7 +15,7 @@ module.exports = function(config) {
         })
       }
     }
-
-        return lineup;
-    });
+    
+    return lineup;
+  });
 }
