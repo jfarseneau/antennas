@@ -17,7 +17,7 @@ function structureConfig(tvheadendUrl, antennasUrl, tunerCount, deviceUuid) {
     parsedTvheadendURI = {
       username: null,
       password: null,
-      uri: uri,
+      uri: tvheadendUrl,
     }
   }
 
