@@ -37,12 +37,12 @@ try {
 
   app.listen(5004);
 
-  const logo = fs.readFileSync('./assets/logo.txt','utf8');
   // Version only comes in when run with NPM, so make this optional
   let antennasVersion = process.env.npm_package_version ? `v${process.env.npm_package_version}` : ''; 
   if (argv.nologo) {
     console.log(`Antennas ${antennasVersion}`);
   } else {
+    const logo = fs.readFileSync('./assets/logo.txt','utf8');
     console.log('\x1b[34m%s\x1b[0m', logo, antennasVersion);
   }
   
