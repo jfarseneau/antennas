@@ -11,11 +11,11 @@ module.exports = function(config) {
         lineup.push({
           GuideNumber: String(channel.number),
           GuideName: channel.name,
-          URL: `${config.public_tvheadend_parsed_stream_uri}/stream/channel/${channel.uuid}`
+          URL: `${config.tvheadend_stream_url}/stream/channel/${channel.uuid}`
         })
       }
     }
-    
+
     return lineup;
   });
 }
