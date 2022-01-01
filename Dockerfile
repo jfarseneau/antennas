@@ -1,5 +1,5 @@
 FROM node:9-alpine
-LABEL maintainer "jf.arseneau@gmail.com"
+LABEL maintainer="jf.arseneau@gmail.com"
 
 COPY . /antennas
 WORKDIR "/antennas"
