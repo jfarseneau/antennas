@@ -27,7 +27,8 @@ To run it as a daemon:
 
 ## Run locally using NPX
 
-`npx antennas`
+`npx antennas --config foo/bar.yml` OR
+`TVHEADEND_URL=http://admin:test@192.168.0.1:9981 ANTENNAS_URL=http://127.0.0.1:5004 TUNER_COUNT=6 DEVICE_UUID=2f70c0d7-90a3-4429-8275-cbeeee9cd605 npx antennas`
 
 ### Docker
 
