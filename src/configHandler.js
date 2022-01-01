@@ -54,7 +54,7 @@ function loadConfig(configFile = 'config/config.yml') {
     let config = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'));
     return structureConfig(
       process.env.TVHEADEND_URL || config.tvheadend_url,
-      process.env.TVHEADEND_STREAM_URL || process.env.TVHEADEND_URL || config.stream_url || config.tvheadend_url,
+      process.env.TVHEADEND_STREAM_URL || config.stream_url || process.env.TVHEADEND_URL || config.tvheadend_url,
       process.env.ANTENNAS_URL || config.antennas_url,
       parseInt(process.env.TUNER_COUNT) || config.tuner_count,
       process.env.DEVICE_UUID || config.device_uuid,

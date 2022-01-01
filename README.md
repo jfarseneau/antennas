@@ -74,11 +74,13 @@ Antennas will look for three values inside a `config/config.yml` file. They are:
 
 * `tvheadend_url`: This is the path to your Tvheadend setup, with username, password, and port. Plex doesn't like `localhost` so it's best to find your own local IP and put this in if Tvheadend and Plex are running on the same network. For example: `http://user:pass@192.168.0.1:9981`
 * `tuner_count`: This is for the number of tuners in Tvheadend.
+* `stream_url`: Optional field to set a stream URL that is different from the Tvheadend URL, for private Docker networks
 
 #### Environment variables
 
 If you want to set environment variables instead of modifying the config.yml, you can do so. The environment variable names are the same than the config.yml, except capitalized. So, `TVHEADEND_URL` and `TUNER_COUNT`.
-Optionally, when you are hosting tvheadend and antennas in a private docker network, you can specify an URL where your tvheadend service and therefore the actual streams will be available in your network (e.g. the hostname and port of your host maschine)  
+
+Optionally, for private Docker networks that need to expose a different URL for the streams, you can specify a public stream URL using `TVHEADEND_STREAM_URL`
 
 #### CLI parameters
 
