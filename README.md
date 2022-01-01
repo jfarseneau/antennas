@@ -1,4 +1,4 @@
-![Antennas](https://raw.githubusercontent.com/TheJF/antennas/master/docs/images/antennas-logo.png)
+![Antennas](https://raw.githubusercontent.com/jfarseneau/antennas/master/docs/images/antennas-logo.png)
 
 A JavaScript port of [tvhProxy](https://github.com/jkaberg/tvhProxy) which is a program that translates the Tvheadend API to emulate a HDHomeRun API. This is particularly useful to connect [Plex's DVR feature](https://www.plex.tv/features/live-tv-dvr/) to Tvheadend.
 
@@ -7,18 +7,18 @@ A JavaScript port of [tvhProxy](https://github.com/jkaberg/tvhProxy) which is a 
 ### Tvheadend Configuration
 To be able to stream from Tvheadend through Plex, you need to set up an anonymous user in Tvheadend that has streaming rights. You can do this in the users section, by creating a user `*`:
 
-![Example configuration](https://raw.githubusercontent.com/TheJF/antennas/master/docs/images/tvheadend-config.png)
+![Example configuration](https://raw.githubusercontent.com/jfarseneau/antennas/master/docs/images/tvheadend-config.png)
 
 ### Using binaries
 
-Head over to the [release](https://github.com/TheJF/antennas/releases) section and download the binary for your platform. It will come with a `config/config.yml` that you can edit to reflect your setup, and you can simply run `antennas` in the console and the server will start up and start proxying Tvheadend over to Plex!
+Head over to the [release](https://github.com/jfarseneau/antennas/releases) section and download the binary for your platform. It will come with a `config/config.yml` that you can edit to reflect your setup, and you can simply run `antennas` in the console and the server will start up and start proxying Tvheadend over to Plex!
 
 ### Run locally using Node
 
 Right now, due to Docker networking issues, the best way to get this working is by running it directly through node.
 
 * [Set up Node locally](https://nodejs.org/en/download/)
-* Clone this repo: `git clone https://github.com/TheJF/antennas.git` or [download the source code directly from releases](https://github.com/TheJF/antennas/releases) and extract it
+* Clone this repo: `git clone https://github.com/jfarseneau/antennas.git` or [download the source code directly from releases](https://github.com/jfarseneau/antennas/releases) and extract it
 * Run `yarn install` or `npm install` to install dependencies
 * In the directory where it was extracted, run `node index.js` (Note, Node version must be above 7)
 
@@ -39,7 +39,7 @@ To start a Docker container running Antennas, run the command below. Note you mu
 
 To view if the configurations have been passed correctly, you can point your browser to where you are hosting Antennas (in the above example, it would be `http://x.x.x.x:5004` but this is a placeholder address that __needs__ to be changed) and you should see a summary of your configurations on the page:
 
-![Example landing page](https://raw.githubusercontent.com/TheJF/antennas/master/docs/images/example-index.png)
+![Example landing page](https://raw.githubusercontent.com/jfarseneau/antennas/master/docs/images/example-index.png)
 
 Alternatively, you can set it with all the available environment variables:
 ```
@@ -53,7 +53,7 @@ Alternatively, you can set it with all the available environment variables:
 
 And then `docker start antennas`
 
-Or, you can try by mounting a volume, set by yourself in path/to/config, that will need a config.yml to work. Example of a config.yml is [available here](https://github.com/TheJF/antennas/blob/master/config/config.yml), or below:
+Or, you can try by mounting a volume, set by yourself in path/to/config, that will need a config.yml to work. Example of a config.yml is [available here](https://github.com/jfarseneau/antennas/blob/master/config/config.yml), or below:
 ```
 tvheadend_url: http://replace:me@x.x.x.x:9981
 antennas_url: http://x.x.x.x:5004
@@ -61,7 +61,7 @@ tuner_count: 6
 ```
 
 * `docker create --name=antennas -v <path/to/config>:/antennas/config -p 5004:5004 thejf/antennas`
-* Set up `config.yml` (see configuration instructions [here](https://github.com/TheJF/antennas#configuration)) where you pointed the config volume (what you replaced `<path/to/config>` with
+* Set up `config.yml` (see configuration instructions [here](https://github.com/jfarseneau/antennas#configuration)) where you pointed the config volume (what you replaced `<path/to/config>` with
 * Finally, `docker start antennas`
 
 ## Configuration
