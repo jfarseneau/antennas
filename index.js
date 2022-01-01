@@ -40,7 +40,13 @@ try {
   const logo = fs.readFileSync('./assets/logo.txt','utf8');
   // Version only comes in when run with NPM, so make this optional
   let antennasVersion = process.env.npm_package_version ? `v${process.env.npm_package_version}` : ''; 
-  console.log('\x1b[34m%s\x1b[0m', logo, antennasVersion);
+  if (argv.nologo) {
+    console.log(`Antennas ${antennasVersion}`);
+  } else {
+    console.log('\x1b[34m%s\x1b[0m', logo, antennasVersion);
+  }
+  
+  
   console.log(``)
   console.log(`📡 Antennas are deployed! Proxying from ${config.antennas_url}`);
   ssdp.broadcastSSDP(device);
