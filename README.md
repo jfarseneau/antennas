@@ -55,10 +55,10 @@ Alternatively, you can set it with all the available environment variables:
 
 ``` shell
   docker create --name=antennas
-    -e ANTENNAS_URL=http://x.x.x.x:5004
-    -e TVHEADEND_URL=http://replace:me@x.x.x.x:9981
-    -e TUNER_COUNT=6
-    -p 5004:5004
+    -e ANTENNAS_URL=http://x.x.x.x:5004 \
+    -e TVHEADEND_URL=http://replace:me@x.x.x.x:9981 \
+    -e TUNER_COUNT=6 \
+    -p 5004:5004 \
     thejf/antennas
 ```
 
