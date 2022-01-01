@@ -24,6 +24,7 @@ function urlReplace(elementId) {
 fetch('/antennas_config.json').then((result) => {
   let config = JSON.parse(result);
   urlReplace('#tvheadendUrl')(config.tvheadend_parsed_uri);
+  urlReplace('#tvheadendStreamUrl')(config.tvheadend_parsed_stream_uri);
   urlReplace('#antennasUrl')(config.antennas_url);
   replace('#tunerCount')(config.tuner_count);
   replace('#status')(config.status);
