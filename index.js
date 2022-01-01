@@ -9,6 +9,16 @@ const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 const argv = yargs(hideBin(process.argv)).argv;
 
+// Version only comes in when run with NPM, so make this optional
+let antennasVersion = process.env.npm_package_version ? `v${process.env.npm_package_version}` : ''; 
+if (argv.nologo) {
+  console.log(`Antennas ${antennasVersion}`);
+} else {
+  const logo = fs.readFileSync('./assets/logo.txt','utf8');
+  console.log('\x1b[34m%s\x1b[0m', logo, antennasVersion);
+}
+console.log(``)
+
 // Load config
 const configHandler = require('./src/configHandler');
 const config = argv.config ? configHandler.loadConfig(argv.config) : configHandler.loadConfig();
@@ -36,22 +46,11 @@ try {
     });
 
   app.listen(5004);
-
-  // Version only comes in when run with NPM, so make this optional
-  let antennasVersion = process.env.npm_package_version ? `v${process.env.npm_package_version}` : ''; 
-  if (argv.nologo) {
-    console.log(`Antennas ${antennasVersion}`);
-  } else {
-    const logo = fs.readFileSync('./assets/logo.txt','utf8');
-    console.log('\x1b[34m%s\x1b[0m', logo, antennasVersion);
-  }
   
-  
-  console.log(``)
   console.log(`📡 Antennas are deployed! Proxying from ${config.antennas_url}`);
   ssdp.broadcastSSDP(device);
 } catch (e) {
-  console.log('❌ Antennas failed to deploy! 😮  It could be missing a config file, or something is misconfigured. See below for details:');
+  console.log('❌ Antennas failed to deploy! 😮 It could be missing a config file, or something is misconfigured. See below for details:');
   console.log(e);
 }
 

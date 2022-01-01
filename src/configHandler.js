@@ -39,14 +39,18 @@ function loadConfig(configFile = 'config/config.yml') {
   }
 
   // If you do, load it
-  let config = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'));
-  return structureConfig(
-    process.env.TVHEADEND_URL || config.tvheadend_url,
-    process.env.ANTENNAS_URL || config.antennas_url,
-    process.env.TUNER_COUNT || config.tuner_count,
-    process.env.DEVICE_UUID || config.device_uuid,
-  )
-  
+  if (fs.existsSync(configFile)) {
+    let config = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'));
+    return structureConfig(
+      process.env.TVHEADEND_URL || config.tvheadend_url,
+      process.env.ANTENNAS_URL || config.antennas_url,
+      process.env.TUNER_COUNT || config.tuner_count,
+      process.env.DEVICE_UUID || config.device_uuid,
+    )
+  } else {
+    console.log(`❌ Config file ${configFile} could not be found; did you specify a config file and is it the right path?`);
+    process.exit(1);
+  }
 }
 
 module.exports = { loadConfig }
