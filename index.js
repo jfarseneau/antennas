@@ -4,6 +4,7 @@ const Koa = require('koa');
 const serve = require('koa-static');
 const logger = require('koa-logger');
 const fs = require('fs');
+const path = require('path')
 
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
@@ -14,7 +15,8 @@ let antennasVersion = process.env.npm_package_version ? `v${process.env.npm_pack
 if (argv.nologo) {
   console.log(`Antennas ${antennasVersion}`);
 } else {
-  const logo = fs.readFileSync('./assets/logo.txt','utf8');
+  const logoFile = path.join('assets', 'logo.txt');
+  const logo = fs.readFileSync(path.resolve(__dirname, logoFile), 'utf8');
   console.log('\x1b[34m%s\x1b[0m', logo, antennasVersion);
 }
 console.log(``)
