@@ -40,11 +40,11 @@ try {
     .use(logger())
     .use(router.routes())
     .use(router.allowedMethods())
-    .use(serve('public', { extensions: true }))
+    .use(serve(path.resolve(__dirname, 'public'), { extensions: true }))
     .use(async function pageNotFound(ctx) {
       ctx.status = 404;
       ctx.type = 'html';
-      ctx.body = fs.createReadStream('public/404.html');
+      ctx.body = fs.createReadStream(path.resolve(__dirname, path.join('public', '404.html')));
     });
 
   app.listen(5004);
