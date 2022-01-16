@@ -65,4 +65,4 @@ function loadConfig(configFile = 'config/config.yml') {
   }
 }
 
-module.exports = { loadConfig }
+module.exports = { loadConfig, structureConfig, parseTvheadendURI }
