@@ -20,5 +20,11 @@
     "request": "^2.85.0",
     "request-promise-native": "^1.0.5",
     "yargs": "^17.3.1"
+  },
+  "scripts": {
+    "test": "ava"
+  },
+  "devDependencies": {
+    "ava": "^4.0.1"
   }
 }
