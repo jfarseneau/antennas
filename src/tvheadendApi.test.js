@@ -1,31 +1,49 @@
 const test = require('ava');
+const sinon = require('sinon');
+const axios = require('axios');
+
 const tvheadendApi = require('./tvheadendApi');
 
-test('returns the right options with auth', t => {
+let sandbox;
+let axiosStub;
+
+test.beforeEach(() => {
+  sandbox = sinon.createSandbox();
+  axiosStub = sandbox.stub(axios, "get");
+});
+
+test.afterEach.always(() => {
+  sandbox.restore();
+});
+
+test.serial('returns the right options with auth', t => {
   const mockConfig = {
     tvheadend_parsed_uri: 'https://test.test',
     tvheadend_username: 'foo',
     tvheadend_password: 'bar',
   }
 
-  const results = tvheadendApi.get('/testPath', mockConfig);
-  t.is(results.url, 'https://test.test/testPath');
-  t.is(results.method, 'GET');
-  t.is(results.responseType, 'json');
-  t.is(results.timeout, 1500);
-  t.is(results.auth.username, 'foo');
-  t.is(results.auth.password, 'bar');
+  tvheadendApi.get('/testPath', mockConfig);
+  t.assert(axiosStub.calledWith('https://test.test/testPath', {
+    responseType: 'json',
+    timeout: 1500,
+    auth: {
+      username: 'foo',
+      password: 'bar'
+    }
+  }));
+  t.assert(axiosStub.calledOnce);
 });
 
-test('returns the right options with no auth', t => {
+test.serial('returns the right options with no auth', t => {
   const mockConfig = {
     tvheadend_parsed_uri: 'https://test.test',
   }
 
-  const results = tvheadendApi.get('/testPath', mockConfig);
-  t.is(results.url, 'https://test.test/testPath');
-  t.is(results.method, 'GET');
-  t.is(results.responseType, 'json');
-  t.is(results.timeout, 1500);
-  t.falsy(results.auth);
+  tvheadendApi.get('/testPath', mockConfig);
+  t.assert(axiosStub.calledWith('https://test.test/testPath', {
+    responseType: 'json',
+    timeout: 1500
+  }));
+  t.assert(axiosStub.calledOnce);
 });
