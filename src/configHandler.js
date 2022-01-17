@@ -2,23 +2,23 @@ const yaml = require('js-yaml');
 const fs = require('fs');
 
 function parseTvheadendURI(uri) {
-  let splitURI = uri.split('@');
+  const splitURI = uri.split('@');
   let parsedUri;
   if (splitURI.length > 1) {
-    let password = splitURI[0].split(':')[2];
-    let username = splitURI[0].split(":")[1].substr(2);
-    let parsedURI = `${splitURI[0].split(":")[0]}://${splitURI[1]}`
+    const password = splitURI[0].split(':')[2];
+    const username = splitURI[0].split(':')[1].substr(2);
+    const parsedURI = `${splitURI[0].split(':')[0]}://${splitURI[1]}`;
     parsedUri = {
-      username: username,
-      password: password,
+      username,
+      password,
       uri: parsedURI,
-    }
+    };
   } else {
     parsedUri = {
       username: null,
       password: null,
-      uri: uri,
-    }
+      uri,
+    };
   }
 
   return parsedUri;
@@ -38,8 +38,8 @@ function structureConfig(tvheadendUrl, tvheadendStreamUrl, antennasUrl, tunerCou
     tvheadend_stream_password: parsedTvheadendStreamURI.password,
     antennas_url: antennasUrl,
     tuner_count: tunerCount,
-    device_uuid: deviceUuid
-  }
+    device_uuid: deviceUuid,
+  };
 }
 
 function loadConfig(configFile = 'config/config.yml') {
@@ -51,18 +51,17 @@ function loadConfig(configFile = 'config/config.yml') {
 
   // If you do, load it
   if (fs.existsSync(configFile)) {
-    let config = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'));
+    const config = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'));
     return structureConfig(
       process.env.TVHEADEND_URL || config.tvheadend_url,
       process.env.TVHEADEND_STREAM_URL || config.stream_url || process.env.TVHEADEND_URL || config.tvheadend_url,
       process.env.ANTENNAS_URL || config.antennas_url,
       parseInt(process.env.TUNER_COUNT) || config.tuner_count,
       process.env.DEVICE_UUID || config.device_uuid,
-    )
-  } else {
-    console.log(`❌ Config file ${configFile} could not be found; did you specify a config file and is it the right path?`);
-    process.exit(1);
+    );
   }
+  console.log(`❌ Config file ${configFile} could not be found; did you specify a config file and is it the right path?`);
+  process.exit(1);
 }
 
-module.exports = { loadConfig, structureConfig, parseTvheadendURI }
+module.exports = { loadConfig, structureConfig, parseTvheadendURI };

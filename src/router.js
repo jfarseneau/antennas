@@ -5,8 +5,8 @@ const tvheadendApi = require('./tvheadendApi');
 
 async function getConnectionStatus(config) {
   try {
-    let result = await tvheadendApi.get('/api/channel/grid?start=0&limit=999999', config);
-    return "All systems go";
+    const result = await tvheadendApi.get('/api/channel/grid?start=0&limit=999999', config);
+    return 'All systems go';
   } catch (err) {
     console.log(`
     Antennas failed to connect to Tvheadend!
@@ -18,23 +18,23 @@ async function getConnectionStatus(config) {
     Here's a dump of the error:
     ${err}`);
 
-    if (err.response.status === 401) { return "Failed to authenticate with Tvheadend"; }
-    else if (err.code === "ECONNABORTED") { return "Unable to find Tvheadend server, make sure the server is up and the configuration is pointing to the right spot"; }
-    else { return "Unknown error, check the logs for more details"; }
+    if (err.response.status === 401) { return 'Failed to authenticate with Tvheadend'; }
+    if (err.code === 'ECONNABORTED') { return 'Unable to find Tvheadend server, make sure the server is up and the configuration is pointing to the right spot'; }
+    return 'Unknown error, check the logs for more details';
   }
 }
 
-module.exports = function(config, device) {
+module.exports = function (config, device) {
   const router = new Router();
 
   router.get('/antennas_config.json', async (ctx, next) => {
-    ctx.type = "application/json"
+    ctx.type = 'application/json';
     config.status = await getConnectionStatus(config),
     ctx.body = config;
   });
 
   router.get('/device.xml', (ctx, next) => {
-    ctx.type = "application/xml"
+    ctx.type = 'application/xml';
     ctx.body = `<root xmlns="urn:schemas-upnp-org:device-1-0" xmlns:dlna="urn:schemas-dlna-org:device-1-0" xmlns:pnpx="http://schemas.microsoft.com/windows/pnpx/2005/11" xmlns:df="http://schemas.microsoft.com/windows/2008/09/devicefoundation">
   <specVersion>
       <major>1</major>
@@ -90,11 +90,11 @@ module.exports = function(config, device) {
       <url>/images/apple-touch-icon-120x120.png</url>
     </icon>
   </iconList>
-</root>`
+</root>`;
   });
 
   router.get('/ConnectionManager.xml', (ctx, next) => {
-    ctx.type = "application/xml";
+    ctx.type = 'application/xml';
     ctx.body = `
     <?xml version="1.0" encoding="utf-8" ?>
     <scpd xmlns="urn:schemas-upnp-org:service-1-0">
@@ -231,7 +231,7 @@ module.exports = function(config, device) {
   });
 
   router.get('/ContentDirectory.xml', (ctx, next) => {
-    ctx.type = "application/xml";
+    ctx.type = 'application/xml';
     ctx.body = `
     <?xml version="1.0" encoding="utf-8"?>
     <scpd xmlns="urn:schemas-upnp-org:service-1-0">
@@ -376,32 +376,32 @@ module.exports = function(config, device) {
           <dataType>ui4</dataType>
         </stateVariable>
       </serviceStateTable>
-    </scpd>`
+    </scpd>`;
   });
 
   router.get('/discover.json', (ctx, next) => {
-    ctx.type = "application/json"
+    ctx.type = 'application/json';
     ctx.body = device;
   });
 
   router.get('/lineup_status.json', (ctx, next) => {
-    ctx.type = "application/json"
+    ctx.type = 'application/json';
     ctx.body = {
       ScanInProgress: 0,
       ScanPossible: 1,
-      Source: "Cable",
-      SourceList: ["Cable"],
-    }
+      Source: 'Cable',
+      SourceList: ['Cable'],
+    };
   });
 
   router.get('/lineup.json', async (ctx, next) => {
-    ctx.type = "application/json"
+    ctx.type = 'application/json';
     ctx.body = await lineup(config);
   });
 
   // Still don't know if this is useful or not
   router.post('/lineup.post', (ctx, next) => {
-    ctx.type = "application/json"
+    ctx.type = 'application/json';
   });
 
   return router;

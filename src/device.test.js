@@ -1,12 +1,12 @@
 const test = require('ava');
 const device = require('./device');
 
-test('returns the correct device info', t => {
+test('returns the correct device info', (t) => {
   const actual = device({
     tuner_count: 12,
     device_uuid: '000-000-000',
-    antennas_url: 'https://antennas.test'
-  })
+    antennas_url: 'https://antennas.test',
+  });
 
   expected = {
     FriendlyName: 'HDHomerun (Antennas)',
@@ -19,8 +19,8 @@ test('returns the correct device info', t => {
     DeviceID: '000-000-000',
     DeviceAuth: 'test1234',
     BaseURL: 'https://antennas.test',
-    LineupURL: 'https://antennas.test/lineup.json'
-  }
+    LineupURL: 'https://antennas.test/lineup.json',
+  };
 
   t.deepEqual(actual, expected);
 });
