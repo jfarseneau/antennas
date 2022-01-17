@@ -1,14 +1,13 @@
 const Router = require('koa-router');
+
 const lineup = require('./lineup');
+const tvheadendApi = require('./tvheadendApi');
 
-const request = require('request-promise-native');
-const apiOptions = require('./apiOptions');
-
-function getConnectionStatus(config) {
-  let options = apiOptions.get('/api/channel/grid?start=0&limit=999999', config);
-  let result = request(options).then(function(body) {
+async function getConnectionStatus(config) {
+  try {
+    let result = await tvheadendApi.get('/api/channel/grid?start=0&limit=999999', config);
     return "All systems go";
-  }).catch(function(err) {
+  } catch (err) {
     console.log(`
     Antennas failed to connect to Tvheadend!
     Check that:
@@ -18,11 +17,11 @@ function getConnectionStatus(config) {
 
     Here's a dump of the error:
     ${err}`);
-    if (err.statusCode === 401) { return "Failed to authenticate with Tvheadend"; }
-    else if (err.cause.code === "ETIMEDOUT") { return "Unable to find Tvheadend server, make sure the server is up and the configuration is pointing to the right spot"; }
+
+    if (err.response.status === 401) { return "Failed to authenticate with Tvheadend"; }
+    else if (err.code === "ECONNABORTED") { return "Unable to find Tvheadend server, make sure the server is up and the configuration is pointing to the right spot"; }
     else { return "Unknown error, check the logs for more details"; }
-  });
-  return result;
+  }
 }
 
 module.exports = function(config, device) {

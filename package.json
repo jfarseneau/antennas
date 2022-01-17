@@ -10,6 +10,7 @@
     "antennas": "index.js"
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "js-yaml": "^3.13.1",
     "koa": "^2.5.0",
     "koa-logger": "^3.2.0",
@@ -18,7 +19,6 @@
     "koa-static": "^4.0.2",
     "node-ssdp": "^3.3.0",
     "request": "^2.85.0",
-    "request-promise-native": "^1.0.5",
     "yargs": "^17.3.1"
   },
   "scripts": {
