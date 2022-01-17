@@ -1,7 +1,6 @@
-const axios = require('axios');
 const tvheadendApi = require('./tvheadendApi');
 
-module.exports = async function (config) {
+module.exports = async (config) => {
   const body = await tvheadendApi.get('/api/channel/grid?start=0&limit=999999', config);
 
   // TODO: Check if there's a Plex permission problem

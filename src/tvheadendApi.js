@@ -13,7 +13,7 @@ async function get(apiPath, config) {
     };
   }
 
-  return await axios.get(`${config.tvheadend_parsed_uri}${apiPath}`, options);
+  return axios.get(`${config.tvheadend_parsed_uri}${apiPath}`, options);
 }
 
 module.exports = { get };

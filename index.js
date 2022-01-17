@@ -4,14 +4,15 @@ const Koa = require('koa');
 const serve = require('koa-static');
 const logger = require('koa-logger');
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
 
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
-const argv = yargs(hideBin(process.argv)).argv;
+
+const { argv } = yargs(hideBin(process.argv));
 
 // Version only comes in when run with NPM, so make this optional
-let antennasVersion = process.env.npm_package_version ? `v${process.env.npm_package_version}` : ''; 
+const antennasVersion = process.env.npm_package_version ? `v${process.env.npm_package_version}` : '';
 if (argv.nologo) {
   console.log(`Antennas ${antennasVersion}`);
 } else {
@@ -19,10 +20,11 @@ if (argv.nologo) {
   const logo = fs.readFileSync(path.resolve(__dirname, logoFile), 'utf8');
   console.log('\x1b[34m%s\x1b[0m', logo, antennasVersion);
 }
-console.log(``)
+console.log('');
 
 // Load config
 const configHandler = require('./src/configHandler');
+
 const config = argv.config ? configHandler.loadConfig(argv.config) : configHandler.loadConfig();
 
 // Setup Antenna components
@@ -41,19 +43,17 @@ try {
     .use(router.routes())
     .use(router.allowedMethods())
     .use(serve(path.resolve(__dirname, 'public'), { extensions: true }))
-    .use(async function pageNotFound(ctx) {
+    .use(async (ctx) => {
       ctx.status = 404;
       ctx.type = 'html';
       ctx.body = fs.createReadStream(path.resolve(__dirname, path.join('public', '404.html')));
     });
 
   app.listen(5004);
-  
+
   console.log(`📡 Antennas are deployed! Proxying from ${config.antennas_url}`);
   ssdp.broadcastSSDP(device);
 } catch (e) {
   console.log('❌ Antennas failed to deploy! 😮 It could be missing a config file, or something is misconfigured. See below for details:');
   console.log(e);
 }
-
-

@@ -74,7 +74,7 @@ test.serial('quits if it cannot find the file', (t) => {
   const processStub = sandbox.stub(process);
   fsStub.existsSync.returns(false);
 
-  const results = configHandler.loadConfig();
+  configHandler.loadConfig();
   t.assert(processStub.exit.calledWith(1));
   t.assert(processStub.exit.calledOnce);
 });

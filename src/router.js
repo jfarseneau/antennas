@@ -5,7 +5,7 @@ const tvheadendApi = require('./tvheadendApi');
 
 async function getConnectionStatus(config) {
   try {
-    const result = await tvheadendApi.get('/api/channel/grid?start=0&limit=999999', config);
+    await tvheadendApi.get('/api/channel/grid?start=0&limit=999999', config);
     return 'All systems go';
   } catch (err) {
     console.log(`
@@ -24,16 +24,16 @@ async function getConnectionStatus(config) {
   }
 }
 
-module.exports = function (config, device) {
+module.exports = (config, device) => {
   const router = new Router();
 
-  router.get('/antennas_config.json', async (ctx, next) => {
+  router.get('/antennas_config.json', async (ctx) => {
     ctx.type = 'application/json';
-    config.status = await getConnectionStatus(config),
+    config.status = await getConnectionStatus(config);
     ctx.body = config;
   });
 
-  router.get('/device.xml', (ctx, next) => {
+  router.get('/device.xml', (ctx) => {
     ctx.type = 'application/xml';
     ctx.body = `<root xmlns="urn:schemas-upnp-org:device-1-0" xmlns:dlna="urn:schemas-dlna-org:device-1-0" xmlns:pnpx="http://schemas.microsoft.com/windows/pnpx/2005/11" xmlns:df="http://schemas.microsoft.com/windows/2008/09/devicefoundation">
   <specVersion>
@@ -93,7 +93,7 @@ module.exports = function (config, device) {
 </root>`;
   });
 
-  router.get('/ConnectionManager.xml', (ctx, next) => {
+  router.get('/ConnectionManager.xml', (ctx) => {
     ctx.type = 'application/xml';
     ctx.body = `
     <?xml version="1.0" encoding="utf-8" ?>
@@ -230,7 +230,7 @@ module.exports = function (config, device) {
     </scpd>`;
   });
 
-  router.get('/ContentDirectory.xml', (ctx, next) => {
+  router.get('/ContentDirectory.xml', (ctx) => {
     ctx.type = 'application/xml';
     ctx.body = `
     <?xml version="1.0" encoding="utf-8"?>
@@ -379,12 +379,12 @@ module.exports = function (config, device) {
     </scpd>`;
   });
 
-  router.get('/discover.json', (ctx, next) => {
+  router.get('/discover.json', (ctx) => {
     ctx.type = 'application/json';
     ctx.body = device;
   });
 
-  router.get('/lineup_status.json', (ctx, next) => {
+  router.get('/lineup_status.json', (ctx) => {
     ctx.type = 'application/json';
     ctx.body = {
       ScanInProgress: 0,
@@ -394,13 +394,13 @@ module.exports = function (config, device) {
     };
   });
 
-  router.get('/lineup.json', async (ctx, next) => {
+  router.get('/lineup.json', async (ctx) => {
     ctx.type = 'application/json';
     ctx.body = await lineup(config);
   });
 
   // Still don't know if this is useful or not
-  router.post('/lineup.post', (ctx, next) => {
+  router.post('/lineup.post', (ctx) => {
     ctx.type = 'application/json';
   });
 

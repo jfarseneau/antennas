@@ -1,5 +1,5 @@
-module.exports = function (config) {
-  return {
+module.exports = (config) => {
+  const device = {
     FriendlyName: 'HDHomerun (Antennas)',
     Manufacturer: 'Silicondust',
     ManufacturerURL: 'https://github.com/jfarseneau/antennas',
@@ -12,4 +12,5 @@ module.exports = function (config) {
     BaseURL: config.antennas_url,
     LineupURL: `${config.antennas_url}/lineup.json`,
   };
+  return device;
 };

@@ -42,11 +42,12 @@ function structureConfig(tvheadendUrl, tvheadendStreamUrl, antennasUrl, tunerCou
   };
 }
 
+// eslint-disable-next-line consistent-return
 function loadConfig(configFile = 'config/config.yml') {
   // Check if you even need to load the config file
   if (process.env.TVHEADEND_URL && process.env.ANTENNAS_URL && process.env.TUNER_COUNT && process.env.DEVICE_UUID) {
     const tvheadendStreamUrl = process.env.TVHEADEND_STREAM_URL || process.env.TVHEADEND_URL; // Optional
-    return structureConfig(process.env.TVHEADEND_URL, tvheadendStreamUrl, process.env.ANTENNAS_URL, parseInt(process.env.TUNER_COUNT), process.env.DEVICE_UUID);
+    return structureConfig(process.env.TVHEADEND_URL, tvheadendStreamUrl, process.env.ANTENNAS_URL, parseInt(process.env.TUNER_COUNT, 10), process.env.DEVICE_UUID);
   }
 
   // If you do, load it
@@ -56,10 +57,11 @@ function loadConfig(configFile = 'config/config.yml') {
       process.env.TVHEADEND_URL || config.tvheadend_url,
       process.env.TVHEADEND_STREAM_URL || config.stream_url || process.env.TVHEADEND_URL || config.tvheadend_url,
       process.env.ANTENNAS_URL || config.antennas_url,
-      parseInt(process.env.TUNER_COUNT) || config.tuner_count,
+      parseInt(process.env.TUNER_COUNT, 10) || config.tuner_count,
       process.env.DEVICE_UUID || config.device_uuid,
     );
   }
+  // eslint-disable-next-line no-console
   console.log(`❌ Config file ${configFile} could not be found; did you specify a config file and is it the right path?`);
   process.exit(1);
 }

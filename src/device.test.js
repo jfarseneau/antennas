@@ -8,7 +8,7 @@ test('returns the correct device info', (t) => {
     antennas_url: 'https://antennas.test',
   });
 
-  expected = {
+  const expected = {
     FriendlyName: 'HDHomerun (Antennas)',
     Manufacturer: 'Silicondust',
     ManufacturerURL: 'https://github.com/jfarseneau/antennas',
