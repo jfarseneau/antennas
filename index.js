@@ -8,7 +8,7 @@ const path = require('path');
 
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
-
+const {argv} = yargs(hideBin(process.argv));
 const { argv } = yargs(hideBin(process.argv));
 
 // Version only comes in when run with NPM, so make this optional
