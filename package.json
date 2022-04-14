@@ -1,15 +1,16 @@
 {
   "name": "antennas",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "HDHomeRun emulator for Plex DVR to connect to Tvheadend.",
   "main": "index.js",
-  "repository": "https://github.com/thejf/antennas",
+  "repository": "https://github.com/jfarseneau/antennas",
   "author": "Jean-Francois Arseneau",
   "license": "MIT",
   "bin": {
     "antennas": "index.js"
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "js-yaml": "^3.13.1",
     "koa": "^2.5.0",
     "koa-logger": "^3.2.0",
@@ -18,7 +19,20 @@
     "koa-static": "^4.0.2",
     "node-ssdp": "^3.3.0",
     "request": "^2.85.0",
-    "request-promise-native": "^1.0.5",
     "yargs": "^17.3.1"
+  },
+  "scripts": {
+    "test": "ava",
+    "coverage": "nyc --reporter=lcov --reporter=text-summary ava",
+    "lint": "eslint src"
+  },
+  "devDependencies": {
+    "ava": "^4.0.1",
+    "eslint": "^8.7.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-ava": "^13.2.0",
+    "eslint-plugin-import": "^2.25.4",
+    "nyc": "^15.1.0",
+    "sinon": "^12.0.1"
   }
 }

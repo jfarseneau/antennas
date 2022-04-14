@@ -5,6 +5,7 @@ A JavaScript port of [tvhProxy](https://github.com/jkaberg/tvhProxy) which is a 
 ## Getting it running
 
 ### Tvheadend Configuration
+
 To be able to stream from Tvheadend through Plex, you need to set up an anonymous user in Tvheadend that has streaming rights. You can do this in the users section, by creating a user `*`:
 
 ![Example configuration](https://raw.githubusercontent.com/jfarseneau/antennas/master/docs/images/tvheadend-config.png)
@@ -80,7 +81,7 @@ tuner_count: 6
 
 Antennas can be configured either via the config.yml or environment variables. Environment variables take precedence over the config.yml.
 
-#### config.yml
+### config.yml
 
 Antennas will look for three values inside a `config/config.yml` file. They are:
 
@@ -88,20 +89,20 @@ Antennas will look for three values inside a `config/config.yml` file. They are:
 * `tuner_count`: This is for the number of tuners in Tvheadend.
 * `stream_url`: Optional field to set a stream URL that is different from the Tvheadend URL, for private Docker networks
 
-#### Environment variables
+### Environment variables
 
 If you want to set environment variables instead of modifying the config.yml, you can do so. The environment variable names are the same than the config.yml, except capitalized. So, `TVHEADEND_URL` and `TUNER_COUNT`.
 
 Optionally, for private Docker networks that need to expose a different URL for the streams, you can specify a public stream URL using `TVHEADEND_STREAM_URL`
 
-#### CLI parameters
+### CLI parameters
 
-- `--config` followed by the config path, i.e. `--config foo/bar.yml` will allow you to set a custom path for the config file
-- `--nologo` will disable the big ASCII art logo for a simple text one
+* `--config` followed by the config path, i.e. `--config foo/bar.yml` will allow you to set a custom path for the config file
+* `--nologo` will disable the big ASCII art logo for a simple text one
 
 ## Contributing
 
-1. Fork it ( https://github.com/thejf/antennas/fork )
+1. Fork it ( <https://github.com/thejf/antennas/fork> )
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)

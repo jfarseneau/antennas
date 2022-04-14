@@ -1,21 +1,19 @@
-const request = require('request-promise-native');
-const apiOptions = require('./apiOptions');
+const tvheadendApi = require('./tvheadendApi');
 
-module.exports = function(config) {
-  let options = apiOptions.get('/api/channel/grid?start=0&limit=999999', config);
-  return request(options).then(function(body) {
-    // TODO: Check if there's a Plex permission problem
-    let lineup = [];
-    for (let channel of body.entries) {
-      if (channel.enabled) {
-        lineup.push({
-          GuideNumber: String(channel.number),
-          GuideName: channel.name,
-          URL: `${config.tvheadend_stream_url}/stream/channel/${channel.uuid}`
-        })
-      }
+module.exports = async (config) => {
+  const body = await tvheadendApi.get('/api/channel/grid?start=0&limit=999999', config);
+
+  // TODO: Check if there's a Plex permission problem
+  const lineup = [];
+  for (const channel of body.entries) {
+    if (channel.enabled) {
+      lineup.push({
+        GuideNumber: String(channel.number),
+        GuideName: channel.name,
+        URL: `${config.tvheadend_stream_url}/stream/channel/${channel.uuid}`,
+      });
     }
+  }
 
-    return lineup;
-  });
-}
+  return lineup;
+};
