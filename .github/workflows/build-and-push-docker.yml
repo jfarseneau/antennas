@@ -1,7 +1,16 @@
 name: Build and push Docker image
 
 on:
-  push
+  schedule:
+    - cron: '0 10 * * *'
+  push:
+    branches:
+      - '**'
+    tags:
+      - 'v*.*.*'
+  pull_request:
+    branches:
+      - 'main'
 
 jobs:
   build:
@@ -9,6 +18,22 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            thejf/antennas
+            ghcr.io/jfarseneau/antennas
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -34,7 +59,6 @@ jobs:
         with:
           context: .
           platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6
-          push: false
-          tags: | 
-            thejf/antennas:test
-            ghcr.io/jfarseneau/antennas:test
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
