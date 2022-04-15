@@ -1,11 +1,7 @@
 name: Build and push Docker image
 
 on:
-  schedule:
-    - cron: '0 10 * * *'
   push:
-    branches:
-      - '**'
     tags:
       - 'v*.*.*'
   pull_request:
@@ -27,13 +23,10 @@ jobs:
             thejf/antennas
             ghcr.io/jfarseneau/antennas
           tags: |
-            type=schedule
-            type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
-            type=sha
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
