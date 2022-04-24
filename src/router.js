@@ -5,7 +5,10 @@ const tvheadendApi = require('./tvheadendApi');
 
 async function getConnectionStatus(config) {
   try {
-    await tvheadendApi.get('/api/channel/grid?start=0&limit=999999', config);
+    const channels = await tvheadendApi.get('/api/channel/grid?start=0&limit=999999', config);
+    if (channels.data.total === 0) {
+      return 'Connected but no channels found from Tvheadend';
+    }
     return 'All systems go';
   } catch (err) {
     console.log(`
