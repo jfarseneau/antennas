@@ -17,7 +17,7 @@ async function get(apiPath, config) {
   try {
     return await axios.get(`${config.tvheadend_parsed_uri}${apiPath}`, options);
   } catch (err) {
-    if (err?.response?.status === 401) {
+    if (err && err.response && err.response.status === 401) {
       const axiosDigest = new AxiosDigest(config.tvheadend_username, config.tvheadend_password);
       return axiosDigest.get(`${config.tvheadend_parsed_uri}${apiPath}`);
     }
