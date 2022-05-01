@@ -7,4 +7,4 @@ WORKDIR "/antennas"
 RUN npm install
 
 EXPOSE 5004
-CMD ["npx", "."]
+CMD ["npx", "--yes", "."]
