@@ -36,7 +36,7 @@ test.serial('calls the API with the right options', async (t) => {
         remote_timeshift: false,
         services: ['test-service'],
         tags: [],
-        bouquet: ''
+        bouquet: '',
       }],
       total: 1,
     },
@@ -57,6 +57,15 @@ test.serial('returns empty when Tvheadend has no channel', async (t) => {
       total: 0,
     },
   };
+  tvheadendApiStub.resolves(expectedResponse);
+
+  const actual = await lineup({ tvheadend_stream_url: 'https://stream.test' });
+
+  t.deepEqual(actual, []);
+});
+
+test.serial('returns empty when Tvheadend returns nothing', async (t) => {
+  const expectedResponse = {};
   tvheadendApiStub.resolves(expectedResponse);
 
   const actual = await lineup({ tvheadend_stream_url: 'https://stream.test' });
