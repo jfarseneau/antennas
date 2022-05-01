@@ -27,10 +27,10 @@ async function getConnectionStatus(config) {
 
     let status = 'Unknown error, check the logs for more details';
 
-    if (err?.response?.status === 401) { status = 'Failed to authenticate with Tvheadend'; }
-    if (err?.code === 'ECONNABORTED') { status = 'Unable to find Tvheadend server, make sure the server is up and the configuration is pointing to the right spot'; }
-    if (err?.message === 'Auth params error.' || err?.message === 'Username and password not accepted by Tvheadend' ) { status = 'Access denied to Tvheadend; check the username, password, and access rights'; }
-    if (err?.message === 'Unable to connect to Tvheadend') { status = 'Unable to connect to Tvheadend; is it running?'; }
+    if (err && err.response && err.response.status === 401) { status = 'Failed to authenticate with Tvheadend'; }
+    if (err && err.code === 'ECONNABORTED') { status = 'Unable to find Tvheadend server, make sure the server is up and the configuration is pointing to the right spot'; }
+    if (err && err.message === 'Auth params error.' || err?.message === 'Username and password not accepted by Tvheadend' ) { status = 'Access denied to Tvheadend; check the username, password, and access rights'; }
+    if (err && err.message === 'Unable to connect to Tvheadend') { status = 'Unable to connect to Tvheadend; is it running?'; }
     
     return {
       status,
@@ -44,9 +44,9 @@ module.exports = (config, device) => {
 
   router.get('/antennas_config.json', async (ctx) => {
     ctx.type = 'application/json';
-    const connectionStatus = await getConnectionStatus(config);
-    config.status = connectionStatus.status;
-    config.channel_count = connectionStatus.channelCount;
+    const { status, channelCount } = await getConnectionStatus(config);
+    config.status = status;
+    config.channel_count = channelCount;
     ctx.body = config;
   });
 

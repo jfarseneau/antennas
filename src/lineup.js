@@ -8,7 +8,7 @@ module.exports = async (config) => {
     const { data } = response;
     // TODO: Check if there's a Plex permission problem
 
-    if (data?.entries) {
+    if (data && data.entries) {
       for (const channel of data.entries) {
         if (channel.enabled) {
           lineup.push({
