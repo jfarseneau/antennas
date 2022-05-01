@@ -27,6 +27,7 @@ fetch('/antennas_config.json').then((result) => {
   urlReplace('#tvheadendStreamUrl')(config.tvheadend_parsed_stream_uri);
   urlReplace('#antennasUrl')(config.antennas_url);
   replace('#tunerCount')(config.tuner_count);
+  replace('#channelCount')(config.channel_count);
   replace('#status')(config.status);
 });
 

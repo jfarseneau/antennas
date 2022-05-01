@@ -1,6 +1,6 @@
 {
   "name": "antennas",
-  "version": "4.1.2",
+  "version": "4.2.0",
   "description": "HDHomeRun emulator for Plex DVR to connect to Tvheadend.",
   "main": "index.js",
   "repository": "https://github.com/jfarseneau/antennas",
@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "axios": "^0.24.0",
+    "axios-digest": "^0.3.0",
     "js-yaml": "^3.13.1",
     "koa": "^2.5.0",
     "koa-logger": "^3.2.0",
