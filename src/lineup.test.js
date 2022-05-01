@@ -64,8 +64,17 @@ test.serial('returns empty when Tvheadend has no channel', async (t) => {
   t.deepEqual(actual, []);
 });
 
-test.serial('returns empty when Tvheadend returns nothing', async (t) => {
-  const expectedResponse = {};
+test.serial('returns empty when Tvheadend returns undefined', async (t) => {
+  const expectedResponse = undefined;
+  tvheadendApiStub.resolves(expectedResponse);
+
+  const actual = await lineup({ tvheadend_stream_url: 'https://stream.test' });
+
+  t.deepEqual(actual, []);
+});
+
+test.serial('returns empty when Tvheadend returns no data', async (t) => {
+  const expectedResponse = { data: undefined };
   tvheadendApiStub.resolves(expectedResponse);
 
   const actual = await lineup({ tvheadend_stream_url: 'https://stream.test' });
