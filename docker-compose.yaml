@@ -1,0 +1,11 @@
+version: '3.3'
+services:
+    antennas:
+        image: thejf/antennas
+        container_name: antennas
+        environment:
+            - ANTENNAS_URL='http://x.x.x.x:5004'
+            - TVHEADEND_URL='http://replace:me@x.x.x.x:9981'
+            - TUNER_COUNT=6
+        ports:
+            - '5004:5004'
