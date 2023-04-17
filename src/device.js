@@ -1,7 +1,7 @@
 module.exports = (config) => {
   const device = {
-    FriendlyName: 'HDHomerun (Antennas)',
-    Manufacturer: 'Silicondust',
+    FriendlyName: 'Virtual Antennas',
+    Manufacturer: 'github.com/jfarseneau',
     ManufacturerURL: 'https://github.com/jfarseneau/antennas',
     ModelNumber: 'HDTC-2US',
     FirmwareName: 'hdhomeruntc_atsc',

@@ -3,7 +3,7 @@ const tvheadendApi = require('./tvheadendApi');
 module.exports = async (config) => {
   const response = await tvheadendApi.get('/api/channel/grid?start=0&limit=999999', config);
   const lineup = [];
-  
+
   if (response) {
     const { data } = response;
     // TODO: Check if there's a Plex permission problem
@@ -20,7 +20,6 @@ module.exports = async (config) => {
       }
     }
   }
-  
 
   return lineup;
 };
