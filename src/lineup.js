@@ -14,7 +14,7 @@ module.exports = async (config) => {
           lineup.push({
             GuideNumber: String(channel.number),
             GuideName: channel.name,
-            URL: `${config.tvheadend_stream_url}/stream/channel/${channel.uuid}`,
+            URL: `${config.tvheadendStreamUrl}/stream/channel/${channel.uuid}`,
           });
         }
       }

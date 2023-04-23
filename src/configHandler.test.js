@@ -8,7 +8,7 @@ const testConfig = `
 tvheadend_url: http://admin:test@192.168.0.1:9981
 antennas_url: http://127.0.0.1:5004
 tuner_count: 6 # numbers of tuners in tvheadend
-device_uuid: 2f70c0d7-90a3-4429-8275-cbeeee9cd605
+deviceUuid: 2f70c0d7-90a3-4429-8275-cbeeee9cd605
 `.trim();
 
 let sandbox;
@@ -28,16 +28,15 @@ test.serial('loads the specified config', (t) => {
   fs.readFileSync.returns(testConfig);
   const results = configHandler.loadConfig('test.yml');
 
-  t.is(results.tvheadend_parsed_uri, 'http://192.168.0.1:9981');
-  t.is(results.tvheadend_username, 'admin');
-  t.is(results.tvheadend_password, 'test');
-  t.is(results.tvheadend_url, 'http://admin:test@192.168.0.1:9981');
-  t.is(results.tvheadend_stream_url, 'http://admin:test@192.168.0.1:9981');
-  t.is(results.tvheadend_stream_username, 'admin');
-  t.is(results.tvheadend_stream_password, 'test');
-  t.is(results.antennas_url, 'http://127.0.0.1:5004');
-  t.is(results.tuner_count, 6);
-  t.is(results.device_uuid, '2f70c0d7-90a3-4429-8275-cbeeee9cd605');
+  t.is(results.tvheadendUrl, 'http://192.168.0.1:9981');
+  t.is(results.tvheadendUsername, 'admin');
+  t.is(results.tvheadendPassword, 'test');
+  t.is(results.tvheadendStreamUrl, 'http://192.168.0.1:9981');
+  t.is(results.tvheadendStreamUsername, 'admin');
+  t.is(results.tvheadendStreamPassword, 'test');
+  t.is(results.antennasUrl, 'http://127.0.0.1:5004');
+  t.is(results.tunerCount, 6);
+  t.is(results.deviceUuid, '2f70c0d7-90a3-4429-8275-cbeeee9cd605');
 
   t.assert(fsStub.existsSync.calledWith('test.yml'));
   t.assert(fsStub.existsSync.calledOnce);
@@ -51,32 +50,21 @@ test.serial('load the config from the default path', (t) => {
   fs.readFileSync.returns(testConfig);
   const results = configHandler.loadConfig();
 
-  t.is(results.tvheadend_parsed_uri, 'http://192.168.0.1:9981');
-  t.is(results.tvheadend_username, 'admin');
-  t.is(results.tvheadend_password, 'test');
-  t.is(results.tvheadend_url, 'http://admin:test@192.168.0.1:9981');
-  t.is(results.tvheadend_stream_url, 'http://admin:test@192.168.0.1:9981');
-  t.is(results.tvheadend_stream_username, 'admin');
-  t.is(results.tvheadend_stream_password, 'test');
-  t.is(results.antennas_url, 'http://127.0.0.1:5004');
-  t.is(results.tuner_count, 6);
-  t.is(results.device_uuid, '2f70c0d7-90a3-4429-8275-cbeeee9cd605');
+  t.is(results.tvheadendUrl, 'http://192.168.0.1:9981');
+  t.is(results.tvheadendUsername, 'admin');
+  t.is(results.tvheadendPassword, 'test');
+  t.is(results.tvheadendStreamUrl, 'http://192.168.0.1:9981');
+  t.is(results.tvheadendStreamUsername, 'admin');
+  t.is(results.tvheadendStreamPassword, 'test');
+  t.is(results.antennasUrl, 'http://127.0.0.1:5004');
+  t.is(results.tunerCount, 6);
+  t.is(results.deviceUuid, '2f70c0d7-90a3-4429-8275-cbeeee9cd605');
 
   t.assert(fsStub.existsSync.calledWith('config/config.yml'));
   t.assert(fsStub.existsSync.calledOnce);
 
   t.assert(fsStub.readFileSync.calledWith('config/config.yml', 'utf8'));
   t.assert(fsStub.readFileSync.calledOnce);
-});
-
-test.serial('quits if it cannot find the file', (t) => {
-  sandbox.stub(console);
-  const processStub = sandbox.stub(process);
-  fsStub.existsSync.returns(false);
-
-  configHandler.loadConfig();
-  t.assert(processStub.exit.calledWith(1));
-  t.assert(processStub.exit.calledOnce);
 });
 
 test.serial('load the config from env variables entirely', (t) => {
@@ -88,19 +76,32 @@ test.serial('load the config from env variables entirely', (t) => {
     ANTENNAS_URL: 'https://antennas.test',
     TUNER_COUNT: '10',
     DEVICE_UUID: '1234-4567',
+    DEVICE_NAME: 'Foo',
+    DEVICE_MANUFACTURER: 'ACME Corp',
+    DEVICE_MANUFACTURER_URL: 'https://acme.test',
+    DEVICE_MODEL_NUMBER: '1234',
+    DEVICE_FIRMWARE_NAME: 'test_firmware',
+    DEVICE_FIRMWARE_VERSION: '1.0.0',
+    DEVICE_AUTH: 'test_auth',
   });
 
   const results = configHandler.loadConfig();
-  t.is(results.tvheadend_parsed_uri, 'https://tvheadend.test');
-  t.is(results.tvheadend_username, 'envuser');
-  t.is(results.tvheadend_password, 'envpass');
-  t.is(results.tvheadend_url, 'https://envuser:envpass@tvheadend.test');
-  t.is(results.tvheadend_stream_url, 'https://envuser:envpass@tvheadend.test');
-  t.is(results.tvheadend_stream_username, 'envuser');
-  t.is(results.tvheadend_stream_password, 'envpass');
-  t.is(results.antennas_url, 'https://antennas.test');
-  t.is(results.tuner_count, 10);
-  t.is(results.device_uuid, '1234-4567');
+  t.is(results.tvheadendUrl, 'https://tvheadend.test');
+  t.is(results.tvheadendUsername, 'envuser');
+  t.is(results.tvheadendPassword, 'envpass');
+  t.is(results.tvheadendStreamUrl, 'https://tvheadend.test');
+  t.is(results.tvheadendStreamUsername, 'envuser');
+  t.is(results.tvheadendStreamPassword, 'envpass');
+  t.is(results.antennasUrl, 'https://antennas.test');
+  t.is(results.tunerCount, 10);
+  t.is(results.deviceUuid, '1234-4567');
+  t.is(results.deviceName, 'Foo');
+  t.is(results.deviceManufacturer, 'ACME Corp');
+  t.is(results.deviceManufacturerUrl, 'https://acme.test');
+  t.is(results.deviceModelNumber, '1234');
+  t.is(results.deviceFirmwareName, 'test_firmware');
+  t.is(results.deviceFirmwareVersion, '1.0.0');
+  t.is(results.deviceAuth, 'test_auth');
 });
 
 test.serial('load the config from a mix of env var and file', (t) => {
@@ -115,44 +116,25 @@ test.serial('load the config from a mix of env var and file', (t) => {
   });
   const results = configHandler.loadConfig('test.yml');
 
-  t.is(results.tvheadend_parsed_uri, 'https://tvheadend.test');
-  t.is(results.tvheadend_username, 'envuser');
-  t.is(results.tvheadend_password, 'envpass');
-  t.is(results.tvheadend_url, 'https://envuser:envpass@tvheadend.test');
-  t.is(results.tvheadend_stream_url, 'https://streamuser:streampass@tvheadendstream.test');
-  t.is(results.tvheadend_stream_username, 'streamuser');
-  t.is(results.tvheadend_stream_password, 'streampass');
-  t.is(results.antennas_url, 'http://127.0.0.1:5004');
-  t.is(results.tuner_count, 6);
-  t.is(results.device_uuid, '2f70c0d7-90a3-4429-8275-cbeeee9cd605');
+  t.is(results.tvheadendUrl, 'https://tvheadend.test');
+  t.is(results.tvheadendUsername, 'envuser');
+  t.is(results.tvheadendPassword, 'envpass');
+  t.is(results.tvheadendStreamUrl, 'https://tvheadendstream.test');
+  t.is(results.tvheadendStreamUsername, 'streamuser');
+  t.is(results.tvheadendStreamPassword, 'streampass');
+  t.is(results.antennasUrl, 'http://127.0.0.1:5004');
+  t.is(results.tunerCount, 6);
+  t.is(results.deviceUuid, '2f70c0d7-90a3-4429-8275-cbeeee9cd605');
+  t.is(results.deviceName, 'Virtual Antennas');
+  t.is(results.deviceManufacturer, 'github.com/jfarseneau');
+  t.is(results.deviceManufacturerUrl, 'https://github.com/jfarseneau/antennas');
+  t.is(results.deviceModelNumber, 'R2D2');
 
   t.assert(fsStub.existsSync.calledWith('test.yml'));
   t.assert(fsStub.existsSync.calledOnce);
 
   t.assert(fsStub.readFileSync.calledWith('test.yml', 'utf8'));
   t.assert(fsStub.readFileSync.calledOnce);
-});
-
-test('structureConfig formats the results', (t) => {
-  const results = configHandler.structureConfig(
-    'https://user:pass@tvheadend.test',
-    'https://streamUser:streamPass@tvheadendStream.test',
-    'https://antennas.test',
-    2,
-    '123456789',
-  );
-
-  t.is(results.tvheadend_parsed_uri, 'https://tvheadend.test');
-  t.is(results.tvheadend_username, 'user');
-  t.is(results.tvheadend_password, 'pass');
-  t.is(results.tvheadend_url, 'https://user:pass@tvheadend.test');
-  t.is(results.tvheadend_stream_url, 'https://streamUser:streamPass@tvheadendStream.test');
-  t.is(results.tvheadend_parsed_stream_uri, 'https://tvheadendStream.test');
-  t.is(results.tvheadend_stream_username, 'streamUser');
-  t.is(results.tvheadend_stream_password, 'streamPass');
-  t.is(results.antennas_url, 'https://antennas.test');
-  t.is(results.tuner_count, 2);
-  t.is(results.device_uuid, '123456789');
 });
 
 test.serial('parseTvheadendURI splits a URI with a username and pass correctly', (t) => {

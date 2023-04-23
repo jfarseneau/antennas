@@ -3,9 +3,16 @@ const device = require('./device');
 
 test('returns the correct device info', (t) => {
   const actual = device({
-    tuner_count: 12,
-    device_uuid: '000-000-000',
-    antennas_url: 'https://antennas.test',
+    tunerCount: 12,
+    deviceUuid: '000-000-000',
+    antennasUrl: 'https://antennas.test',
+    deviceName: 'Virtual Antennas',
+    deviceManufacturer: 'github.com/jfarseneau',
+    deviceManufacturerUrl: 'https://github.com/jfarseneau/antennas',
+    deviceModelNumber: 'R2D2',
+    deviceFirmwareName: 'antennas',
+    deviceFirmwareVersion: '20170930',
+    deviceAuth: 'test1234',
   });
 
   const expected = {

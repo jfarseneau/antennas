@@ -23,11 +23,11 @@ function urlReplace(elementId) {
 
 fetch('/antennas_config.json').then((result) => {
   let config = JSON.parse(result);
-  urlReplace('#tvheadendUrl')(config.tvheadend_parsed_uri);
-  urlReplace('#tvheadendStreamUrl')(config.tvheadend_parsed_stream_uri);
-  urlReplace('#antennasUrl')(config.antennas_url);
-  replace('#tunerCount')(config.tuner_count);
-  replace('#channelCount')(config.channel_count);
+  urlReplace('#tvheadendUrl')(config.tvheadendUrl);
+  urlReplace('#tvheadendStreamUrl')(config.tvheadendStreamUrl);
+  urlReplace('#antennasUrl')(config.antennasUrl);
+  replace('#tunerCount')(config.tunerCount);
+  replace('#channelCount')(config.channelCount);
   replace('#status')(config.status);
 });
 

@@ -24,46 +24,34 @@ function parseTvheadendURI(uri) {
   return parsedUri;
 }
 
-function structureConfig(tvheadendUrl, tvheadendStreamUrl, antennasUrl, tunerCount, deviceUuid) {
-  const parsedTvheadendURI = parseTvheadendURI(tvheadendUrl);
-  const parsedTvheadendStreamURI = parseTvheadendURI(tvheadendStreamUrl);
+// eslint-disable-next-line consistent-return
+function loadConfig(configFile = 'config/config.yml') {
+  let yamlConfig = {};
+  if (fs.existsSync(configFile)) {
+    yamlConfig = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'));
+  }
+
+  const parsedTvheadendURI = parseTvheadendURI(process.env.TVHEADEND_URL || yamlConfig.tvheadend_url);
+  const parsedTvheadendStreamURI = parseTvheadendURI(process.env.TVHEADEND_STREAM_URL || yamlConfig.stream_url || process.env.TVHEADEND_URL || yamlConfig.tvheadend_url);
+
   return {
-    tvheadend_parsed_uri: parsedTvheadendURI.uri,
-    tvheadend_username: parsedTvheadendURI.username,
-    tvheadend_password: parsedTvheadendURI.password,
-    tvheadend_url: tvheadendUrl,
-    tvheadend_stream_url: tvheadendStreamUrl,
-    tvheadend_parsed_stream_uri: parsedTvheadendStreamURI.uri,
-    tvheadend_stream_username: parsedTvheadendStreamURI.username,
-    tvheadend_stream_password: parsedTvheadendStreamURI.password,
-    antennas_url: antennasUrl,
-    tuner_count: tunerCount,
-    device_uuid: deviceUuid,
+    tvheadendUrl: parsedTvheadendURI.uri,
+    tvheadendUsername: parsedTvheadendURI.username,
+    tvheadendPassword: parsedTvheadendURI.password,
+    tvheadendStreamUrl: parsedTvheadendStreamURI.uri,
+    tvheadendStreamUsername: parsedTvheadendStreamURI.username,
+    tvheadendStreamPassword: parsedTvheadendStreamURI.password,
+    antennasUrl: process.env.ANTENNAS_URL || yamlConfig.antennas_url,
+    tunerCount: parseInt(process.env.TUNER_COUNT, 10) || yamlConfig.tuner_count || 10,
+    deviceUuid: process.env.DEVICE_UUID || yamlConfig.device_uuid || '2f70c0d7-90a3-4429-8275-cbeeee9cd605',
+    deviceName: process.env.DEVICE_NAME || yamlConfig.device_name || 'Virtual Antennas',
+    deviceManufacturer: process.env.DEVICE_MANUFACTURER || yamlConfig.device_manufacturer || 'github.com/jfarseneau',
+    deviceManufacturerUrl: process.env.DEVICE_MANUFACTURER_URL || yamlConfig.device_manufacturer_url || 'https://github.com/jfarseneau/antennas',
+    deviceModelNumber: process.env.DEVICE_MODEL_NUMBER || yamlConfig.device_model_number || 'R2D2',
+    deviceFirmwareName: process.env.DEVICE_FIRMWARE_NAME || yamlConfig.device_firmware_name || 'antennas',
+    deviceFirmwareVersion: process.env.DEVICE_FIRMWARE_VERSION || yamlConfig.device_firmware_version || '20170930',
+    deviceAuth: process.env.DEVICE_AUTH || yamlConfig.device_auth || 'test1234',
   };
 }
 
-// eslint-disable-next-line consistent-return
-function loadConfig(configFile = 'config/config.yml') {
-  // Check if you even need to load the config file
-  if (process.env.TVHEADEND_URL && process.env.ANTENNAS_URL && process.env.TUNER_COUNT && process.env.DEVICE_UUID) {
-    const tvheadendStreamUrl = process.env.TVHEADEND_STREAM_URL || process.env.TVHEADEND_URL; // Optional
-    return structureConfig(process.env.TVHEADEND_URL, tvheadendStreamUrl, process.env.ANTENNAS_URL, parseInt(process.env.TUNER_COUNT, 10), process.env.DEVICE_UUID);
-  }
-
-  // If you do, load it
-  if (fs.existsSync(configFile)) {
-    const config = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'));
-    return structureConfig(
-      process.env.TVHEADEND_URL || config.tvheadend_url,
-      process.env.TVHEADEND_STREAM_URL || config.stream_url || process.env.TVHEADEND_URL || config.tvheadend_url,
-      process.env.ANTENNAS_URL || config.antennas_url,
-      parseInt(process.env.TUNER_COUNT, 10) || config.tuner_count,
-      process.env.DEVICE_UUID || config.device_uuid,
-    );
-  }
-  // eslint-disable-next-line no-console
-  console.log(`❌ Config file ${configFile} could not be found; did you specify a config file and is it the right path?`);
-  process.exit(1);
-}
-
-module.exports = { loadConfig, structureConfig, parseTvheadendURI };
+module.exports = { loadConfig, parseTvheadendURI };

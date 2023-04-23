@@ -43,7 +43,7 @@ test.serial('calls the API with the right options', async (t) => {
   };
   tvheadendApiStub.resolves(expectedResponse);
 
-  const actual = await lineup({ tvheadend_stream_url: 'https://stream.test' });
+  const actual = await lineup({ tvheadendStreamUrl: 'https://stream.test' });
 
   t.is(actual[0].GuideNumber, '1');
   t.is(actual[0].GuideName, 'Test Channel');
@@ -59,7 +59,7 @@ test.serial('returns empty when Tvheadend has no channel', async (t) => {
   };
   tvheadendApiStub.resolves(expectedResponse);
 
-  const actual = await lineup({ tvheadend_stream_url: 'https://stream.test' });
+  const actual = await lineup({ tvheadendStreamUrl: 'https://stream.test' });
 
   t.deepEqual(actual, []);
 });
@@ -68,7 +68,7 @@ test.serial('returns empty when Tvheadend returns undefined', async (t) => {
   const expectedResponse = undefined;
   tvheadendApiStub.resolves(expectedResponse);
 
-  const actual = await lineup({ tvheadend_stream_url: 'https://stream.test' });
+  const actual = await lineup({ tvheadendStreamUrl: 'https://stream.test' });
 
   t.deepEqual(actual, []);
 });
@@ -77,7 +77,7 @@ test.serial('returns empty when Tvheadend returns no data', async (t) => {
   const expectedResponse = { data: undefined };
   tvheadendApiStub.resolves(expectedResponse);
 
-  const actual = await lineup({ tvheadend_stream_url: 'https://stream.test' });
+  const actual = await lineup({ tvheadendStreamUrl: 'https://stream.test' });
 
   t.deepEqual(actual, []);
 });
