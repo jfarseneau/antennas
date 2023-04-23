@@ -9,11 +9,11 @@ test('returns the correct device info', (t) => {
   });
 
   const expected = {
-    FriendlyName: 'HDHomerun (Antennas)',
-    Manufacturer: 'Silicondust',
+    FriendlyName: 'Virtual Antennas',
+    Manufacturer: 'github.com/jfarseneau',
     ManufacturerURL: 'https://github.com/jfarseneau/antennas',
-    ModelNumber: 'HDTC-2US',
-    FirmwareName: 'hdhomeruntc_atsc',
+    ModelNumber: 'R2D2',
+    FirmwareName: 'antennas',
     TunerCount: 12,
     FirmwareVersion: '20170930',
     DeviceID: '000-000-000',
