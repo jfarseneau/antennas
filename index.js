@@ -8,6 +8,7 @@ const path = require('path');
 
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
+
 const { argv } = yargs(hideBin(process.argv));
 
 // Version only comes in when run with NPM, so make this optional
@@ -50,7 +51,7 @@ try {
 
   app.listen(5004);
 
-  console.log(`📡 Antennas are deployed! Proxying from ${config.antennas_url}`);
+  console.log(`📡 Antennas are deployed! Proxying from ${config.antennasUrl}`);
   ssdp.broadcastSSDP(device);
 } catch (e) {
   console.log('❌ Antennas failed to deploy! 😮 It could be missing a config file, or something is misconfigured. See below for details:');

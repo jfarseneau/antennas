@@ -34,7 +34,7 @@
     </header>
 
     <div class="configuration">
-      <h2>Config Settings</h2>
+      <h2>System</h2>
       <table>
         <thead>
           <tr>
@@ -44,31 +44,91 @@
         </thead>
         <tbody>
           <tr>
-            <td>Status</td>
+            <th>Status</th>
             <td id="status"></td>
           </tr>
           <tr>
-            <td>URL for Tvheadend</td>
+            <th>URL</th>
+            <td><a id="antennasUrl"></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="configuration">
+      <h2>Channel Source</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <td>Tvheadend</td>
+          </tr>
+          <tr>
+            <th>Application URL</th>
             <td><a id="tvheadendUrl"></a></td>
           </tr>
           <tr>
-            <td>URL for Tvheadend streams</td>
+            <th>Stream URL</th>
             <td><a id="tvheadendStreamUrl"></a></td>
           </tr>
           <tr>
-            <td>URL for Antennas</td>
-            <td><a id="antennasUrl"></a></td>
-          </tr>
-          <tr>
-            <td>Tuner Count</td>
+            <th>Tuner Count</th>
             <td id="tunerCount"></td>
           </tr>
           <tr>
-            <td>Channel Count</td>
+            <th>Channel Count</th>
             <td id="channelCount"></td>
           </tr>
         </tbody>
       </table>
+    </div>
+
+      <div class="configuration">
+        <h2>Virtual Device</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <td id="deviceName"></td>
+            </tr>
+            <tr>
+              <th>Manufacturer</th>
+              <td id="deviceManufacturer"></td>
+            </tr>
+            <tr>
+              <th>Manufacturer URL</th>
+              <td><a id="deviceManufacturerUrl"></a></td>
+            </tr>
+            <tr>
+              <th>Model Number</th>
+              <td id="deviceModelNumber"></td>
+            </tr>
+            <tr>
+              <th>Firmware Name</th>
+              <td id="deviceFirmwareName"></td>
+            </tr>
+            <tr>
+              <th>Firmware Version</th>
+              <td id="deviceFirmwareVersion"></td>
+            </tr>
+            <tr>
+              <th>Auth</th>
+              <td id="deviceAuth"></td>
+            </tr>
+          </tbody>
+        </table>
     </div>
     <script src="/js/index.js"></script>
   </body>
