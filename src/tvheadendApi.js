@@ -7,19 +7,19 @@ async function get(apiPath, config) {
     timeout: 1500,
   };
 
-  if (config.tvheadend_username) {
+  if (config.tvheadendUsername) {
     options.auth = {
-      username: config.tvheadend_username,
-      password: config.tvheadend_password,
+      username: config.tvheadendUsername,
+      password: config.tvheadendPassword,
     };
   }
 
   try {
-    return await axios.get(`${config.tvheadend_parsed_uri}${apiPath}`, options);
+    return await axios.get(`${config.tvheadendUrl}${apiPath}`, options);
   } catch (err) {
     if (err && err.response && err.response.status === 401) {
-      const axiosDigest = new AxiosDigest(config.tvheadend_username, config.tvheadend_password);
-      return axiosDigest.get(`${config.tvheadend_parsed_uri}${apiPath}`);
+      const axiosDigest = new AxiosDigest(config.tvheadendUsername, config.tvheadendPassword);
+      return axiosDigest.get(`${config.tvheadendUrl}${apiPath}`);
     }
 
     return err;

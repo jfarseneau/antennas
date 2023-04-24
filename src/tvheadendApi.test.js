@@ -18,9 +18,9 @@ test.afterEach.always(() => {
 
 test.serial('returns the right options with auth', (t) => {
   const mockConfig = {
-    tvheadend_parsed_uri: 'https://test.test',
-    tvheadend_username: 'foo',
-    tvheadend_password: 'bar',
+    tvheadendUrl: 'https://test.test',
+    tvheadendUsername: 'foo',
+    tvheadendPassword: 'bar',
   };
 
   tvheadendApi.get('/testPath', mockConfig);
@@ -37,7 +37,7 @@ test.serial('returns the right options with auth', (t) => {
 
 test.serial('returns the right options with no auth', (t) => {
   const mockConfig = {
-    tvheadend_parsed_uri: 'https://test.test',
+    tvheadendUrl: 'https://test.test',
   };
 
   tvheadendApi.get('/testPath', mockConfig);
