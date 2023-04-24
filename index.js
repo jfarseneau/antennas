@@ -42,7 +42,7 @@ try {
     .use(logger())
     .use(router.routes())
     .use(router.allowedMethods())
-    .use(serve(path.resolve(__dirname, 'public'), { extensions: true }))
+    .use(serve(path.resolve(__dirname, 'frontend', 'dist'), { extensions: true }))
     .use(async (ctx) => {
       ctx.status = 404;
       ctx.type = 'html';
