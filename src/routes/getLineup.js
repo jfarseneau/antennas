@@ -1,4 +1,4 @@
-const tvheadendApi = require('./tvheadendApi');
+const tvheadendApi = require('../tvheadendApi');
 
 module.exports = async (config) => {
   const response = await tvheadendApi.get('/api/channel/grid?start=0&limit=999999', config);
